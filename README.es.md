@@ -108,7 +108,7 @@ El objetivo es democratizar el poder del prompt engineering, permitiendo a los u
 - **GitHub Actions** - Integración continua y testing automatizado
 - **Vercel** - Plataforma de despliegue con preview deployments
 
-## Herramientas de Desarrollo
+### Herramientas de Desarrollo
 
 - **EditorConfig** - Configuración consistente entre editores
 - **VS Code** - Editor recomendado con extensiones configuradas
