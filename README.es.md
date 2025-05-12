@@ -1,4 +1,9 @@
-# Buho Prompt
+<div align="center">
+
+<img alt="BuhoPrompt" src="./public/buhoprompt-logo-dark.svg" width="150" />
+<h1>BuhoPrompt</h1>
+
+</div>
 
 <div align="center">
 
@@ -17,7 +22,7 @@
 <div align="center">
 
 [Live Demo](#) •
-[README - Español](README.es.md) •
+[README - English](README.md) •
 [Docs](#)
 
 </div>
@@ -63,52 +68,38 @@ El objetivo es democratizar el poder del prompt engineering, permitiendo a los u
 
 ## Stack del Proyecto
 
-### Frontend y Backend
+- **Frontend y Backend**
 
-- **Next.js** - Framework React fullstack con App Router para SSR, API routes y arquitectura de archivos
-- **TypeScript** - Tipado estático para mayor robustez y mejor experiencia de desarrollo
-- **TailwindCSS** - Utilidades CSS para un diseño rápido y consistente
-- **shadcn/ui** - Componentes de UI accesibles y personalizables
+  - Next.js
+  - TypeScript
+  - TailwindCSS
+  - shadcn/ui
 
-### Estado y Manejo de Datos
+- **Estado y Manejo de Datos**
 
-- **Zustand** - Gestión de estado global liviana y eficiente
-- **TanStack Query** - Manejo de estado del servidor, caché y sincronización
-- **Zod** - Validación de esquemas y tipado en tiempo de ejecución
+  - Zustand
+  - TanStack Query
+  - Zod
 
-### Base de datos y ORM
+- **Base de datos y ORM**
 
-- **PostgreSQL** - Base de datos relacional robusta
-- **Prisma** - ORM moderno para TypeScript con migraciones y modelado de datos
+  - PostgreSQL
+  - Prisma
 
-### Autenticación y Seguridad
+- **Autenticación**
 
-- **Clerk** - Autenticación completa y gestión de usuarios
-- **Middleware de Rate Limiting** - Protección contra abusos en la API
+  - Clerk
 
-### IA y Procesamiento
+- **IA y Procesamiento**
 
-- **Gemini API** - Motor de IA para generación y mejora de prompts
-- **MDX Editor** - Editor de Markdown con vista previa en tiempo real
+  - Gemini API
+  - MDX Editor
 
-### Internacionalización
+- **Internacionalización**
 
-- **next-i18next** - Soporte multiidioma completo
+  - next-i18next
 
-### Calidad y Testing
+- **DevOps y CI/CD**
 
-- **ESLint** con **eslint-plugin-jsx-a11y** - Linting y mejores prácticas de accesibilidad
-- **Prettier** - Formateo de código consistente
-- **Jest** y **@testing-library/react** - Tests unitarios
-- **Playwright** - Tests end-to-end
-
-### DevOps y CI/CD
-
-- **Husky** y **commit-lint** - Hooks de Git para calidad de código
-- **GitHub Actions** - Integración continua y testing automatizado
-- **Vercel** - Plataforma de despliegue con preview deployments
-
-### Herramientas de Desarrollo
-
-- **EditorConfig** - Configuración consistente entre editores
-- **VS Code** - Editor recomendado con extensiones configuradas
+  - Husky y commit-lint
+  - Vercel

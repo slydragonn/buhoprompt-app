@@ -1,4 +1,9 @@
-# Buho Prompt
+<div align="center">
+
+<img alt="BuhoPrompt" src="./public/buhoprompt-logo-dark.svg" width="150" />
+<h1>BuhoPrompt</h1>
+
+</div>
 
 <div align="center">
 
@@ -63,52 +68,38 @@ Our goal is to democratize the power of prompt engineering, enabling users to ma
 
 ## Project Stack
 
-**Frontend and Backend**
+- **Frontend and Backend**
 
-- **Next.js** - Full-stack React framework with App Router for SSR, API routes, and file architecture
-- **TypeScript** - Static typing for greater robustness and better developer experience
-- **TailwindCSS** - CSS utilities for fast and consistent design
-- **shadcn/ui** - Accessible and customizable UI components
+  - Next.js
+  - TypeScript
+  - TailwindCSS
+  - shadcn/ui
 
-**State and Data Management**
+- **State and Data Management**
 
-- **Zustand** - Lightweight and efficient global state management
-- **TanStack Query** - Server state management, caching, and synchronization
-- **Zod** - Schema validation and runtime typing
+  - Zustand
+  - TanStack Query
+  - Zod
 
-**Database and ORM**
+- **Database and ORM**
 
-- **PostgreSQL** - Robust relational database
-- **Prisma** - Modern ORM for TypeScript with migrations and data modeling
+  - PostgreSQL
+  - Prisma
 
-**Authentication and Security**
+- **Authentication**
 
-- **Clerk** - Complete authentication and user management
-- **Rate Limiting Middleware** - Protection against API abuse
+  - Clerk
 
-**AI and Processing**
+- **AI and Processing**
 
-- **Gemini API** - AI engine for prompt generation and improvement
-- **MDX Editor** - Markdown editor with real-time preview
+  - Gemini API
+  - MDX Editor
 
-**Internationalization**
+- **Internationalization**
 
-- **next-i18next** - Complete multilingual support
+  - next-i18next
 
-**Quality and Testing**
+- **DevOps and CI/CD**
 
-- **ESLint** with **eslint-plugin-jsx-a11y** - Linting and accessibility best practices
-- **Prettier** - Consistent code formatting
-- **Jest** and **@testing-library/react** - Unit tests
-- **Playwright** - End-to-end tests
-
-**DevOps and CI/CD**
-
-- **Husky** and **commit-lint** - Git hooks for code quality
-- **GitHub Actions** - Continuous integration and automated testing
-- **Vercel** - Deployment platform with preview deployments
-
-**Development Tools**
-
-- **EditorConfig** - Consistent configuration across editors
-- **VS Code** - Recommended editor with configured extensions
+  - Husky and commit-lint
+  - Vercel
