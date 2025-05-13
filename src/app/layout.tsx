@@ -11,6 +11,8 @@ import {
 import { dark } from '@clerk/themes';
 import './globals.css';
 import Link from 'next/link';
+import { ThemeProvider } from '@/components/theme-provider';
+import { ModeToggle } from '@/components/mode-toggle';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -38,21 +40,29 @@ export default function RootLayout({
         baseTheme: dark,
       }}
     >
-      <html lang='en'>
+      <html lang='en' suppressHydrationWarning>
         <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-          <header className='flex justify-around items-center p-4 gap-4 h-16'>
-            <Link href='/'>BuhoPrompt</Link>
-            <div className='flex gap-4'>
-              <SignedOut>
-                <SignInButton />
-                <SignUpButton />
-              </SignedOut>
-              <SignedIn>
-                <UserButton />
-              </SignedIn>
-            </div>
-          </header>
-          {children}
+          <ThemeProvider
+            attribute='class'
+            defaultTheme='system'
+            enableSystem
+            disableTransitionOnChange
+          >
+            <header className='flex justify-around items-center p-4 gap-4 h-16'>
+              <Link href='/'>BuhoPrompt</Link>
+              <div className='flex gap-4'>
+                <SignedOut>
+                  <SignInButton />
+                  <SignUpButton />
+                </SignedOut>
+                <SignedIn>
+                  <UserButton />
+                </SignedIn>
+                <ModeToggle />
+              </div>
+            </header>
+            {children}
+          </ThemeProvider>
         </body>
       </html>
     </ClerkProvider>
