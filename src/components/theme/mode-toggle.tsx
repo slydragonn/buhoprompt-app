@@ -11,9 +11,21 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
+import useUserPreferencesStore from '@/store/user-store';
+import { getPrefersColorScheme } from '@/lib/utils';
 
 export function ModeToggle() {
   const { setTheme } = useTheme();
+  const { preferences, setPreferences } = useUserPreferencesStore();
+
+  const handleTheme = (theme: 'light' | 'dark' | 'system') => {
+    setTheme(theme);
+    const preferenceTheme = theme === 'system' ? getPrefersColorScheme() : theme;
+    setPreferences({
+      ...preferences,
+      theme: preferenceTheme,
+    });
+  };
 
   return (
     <DropdownMenu>
@@ -25,9 +37,9 @@ export function ModeToggle() {
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align='end'>
-        <DropdownMenuItem onClick={() => setTheme('light')}>Light</DropdownMenuItem>
-        <DropdownMenuItem onClick={() => setTheme('dark')}>Dark</DropdownMenuItem>
-        <DropdownMenuItem onClick={() => setTheme('system')}>System</DropdownMenuItem>
+        <DropdownMenuItem onClick={() => handleTheme('light')}>Light</DropdownMenuItem>
+        <DropdownMenuItem onClick={() => handleTheme('dark')}>Dark</DropdownMenuItem>
+        <DropdownMenuItem onClick={() => handleTheme('system')}>System</DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   );
