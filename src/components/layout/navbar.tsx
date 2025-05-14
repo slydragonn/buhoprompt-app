@@ -1,6 +1,6 @@
 'use client';
 
-import { Home, Settings, Zap, BookTemplate, ArrowUpCircleIcon } from 'lucide-react';
+import { Home, Settings, Zap, BookTemplate } from 'lucide-react';
 
 import {
   Sidebar,
@@ -16,6 +16,7 @@ import {
 } from '@/components/ui/sidebar';
 import Link from 'next/link';
 import { SignedIn, UserButton, useUser } from '@clerk/nextjs';
+import { ModeToggle } from '../theme/mode-toggle';
 
 // Menu items.
 const items = [
@@ -51,7 +52,6 @@ export default function Navbar() {
           <SidebarMenuItem>
             <SidebarMenuButton asChild className='data-[slot=sidebar-menu-button]:!p-1.5'>
               <Link href='/'>
-                <ArrowUpCircleIcon className='h-5 w-5' />
                 <span className='text-base font-semibold'>BuhoPrompt</span>
               </Link>
             </SidebarMenuButton>
@@ -94,6 +94,7 @@ export default function Navbar() {
                       {user?.emailAddresses[0]?.emailAddress}
                     </span>
                   </div>
+                  <ModeToggle />
                 </div>
               </SignedIn>
             </SidebarMenuButton>
