@@ -13,7 +13,7 @@ export default function RecentPrompts({ prompts }: Readonly<RecentPromptsProps>)
   if (!prompts.length) {
     return (
       <div className='text-center w-full border border-dashed border-neutral-300 dark:border-neutral-800 rounded-md font-extralight text-sm p-4'>
-        No prompts yet
+        Aún no tienes prompts
       </div>
     );
   }

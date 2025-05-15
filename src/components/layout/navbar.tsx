@@ -22,12 +22,12 @@ import { ModeToggle } from '../theme/mode-toggle';
 const items = {
   application: [
     {
-      title: 'Home',
+      title: 'Inicio',
       url: '/app/dashboard',
       icon: Home,
     },
     {
-      title: 'Favorites',
+      title: 'Favoritos',
       url: '#',
       icon: Star,
     },
@@ -44,12 +44,12 @@ const items = {
   ],
   resources: [
     {
-      title: 'Documentation',
+      title: 'Documentación',
       url: '#',
       icon: Book,
     },
     {
-      title: 'Extension',
+      title: 'Extensión',
       url: '#',
       icon: Box,
     },
@@ -74,12 +74,12 @@ export default function Navbar() {
       </SidebarHeader>
       <SidebarContent>
         <SidebarGroup>
-          <SidebarGroupLabel>Application</SidebarGroupLabel>
+          <SidebarGroupLabel>Aplicación</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
               {items.application.map((item) => (
                 <SidebarMenuItem key={item.title}>
-                  <SidebarMenuButton asChild>
+                  <SidebarMenuButton asChild isActive={item.url === '/app/dashboard'}>
                     <Link href={item.url}>
                       <item.icon />
                       <span>{item.title}</span>
@@ -91,7 +91,7 @@ export default function Navbar() {
           </SidebarGroupContent>
         </SidebarGroup>
         <SidebarGroup>
-          <SidebarGroupLabel>Resources</SidebarGroupLabel>
+          <SidebarGroupLabel>Recursos</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
               {items.resources.map((item) => (

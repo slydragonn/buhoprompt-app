@@ -19,10 +19,10 @@ export default function Header() {
           Changelog
         </Link>
         <Link href='#' className='hover:underline'>
-          Extension
+          Extensión
         </Link>
         <Link href='#' className='hover:underline'>
-          Contact
+          Contacto
         </Link>
       </nav>
       <div className='flex gap-4 text-sm'>

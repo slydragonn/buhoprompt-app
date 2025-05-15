@@ -22,84 +22,84 @@
 <div align="center">
 
 [Live Demo](#) •
-[README - Español](README.es.md) •
+[README - English](README.en.md) •
 [Docs](#)
 
 </div>
 
-The ultimate platform for prompt engineering
-**🚧 Under development 🚧**
+La plataforma definitiva para prompt engineering
+**🚧 En desarrollo 🚧**
 
-## Getting Started
+## Primeros pasos
 
-First, run the development server:
+Primero, ejecuta el servidor de desarrollo:
 
 ```bash
 npm run dev
 ```
 
-To build the application:
+Para compilar la aplicación:
 
 ```bash
 npm run build
 ```
 
-## **📝 Description**
+## **📝 Descripción**
 
-Buho Prompt is a comprehensive platform designed for professionals, content creators, and enthusiasts looking to optimize their interactions with artificial intelligence. This tool allows you to create, store, edit, and refine prompts for different AI models, focusing on prompt engineering best practices.
+Buho Prompt es una plataforma completa diseñada para profesionales, creadores de contenido y entusiastas que buscan optimizar sus interacciones con inteligencia artificial. Esta herramienta permite crear, almacenar, editar y perfeccionar prompts para diferentes modelos de IA, con un enfoque en las mejores prácticas de prompt engineering.
 
-Our goal is to democratize the power of prompt engineering, enabling users to maximize the capabilities of different AI models without needing technical expertise, while also offering advanced tools for professionals.
+El objetivo es democratizar el poder del prompt engineering, permitiendo a los usuarios aprovechar al máximo las capacidades de los diferentes modelos de IA sin necesidad de ser expertos técnicos, mientras ofrece herramientas avanzadas para profesionales.
 
-🔐 We implement robust authentication with Clerk, leveraging email login, social networks, and two-factor authentication to ensure the security of prompts and user data.
+🔐 Implementamos autenticación robusta con Clerk, aprovechando inicio de sesión con email, redes sociales y autenticación de doble factor para garantizar la seguridad de los prompts y datos de usuarios.
 
-✨ **Key Features:**
+✨ **Funcionalidades principales:**
 
-- [ ] Library of prompt templates by categories (images, programming, research, etc.)
-- [ ] Real-time editor with integrated AI chat for prompt refinement
-- [ ] Storage of prompts and responses for analysis and reuse
-- [ ] Customization for different AI models (automatic syntax adaptation)
-- [ ] Complete documentation with Markdown and interactive guides
+- [ ] Biblioteca de plantillas de prompts por categorías (imágenes, programación, investigación, etc.)
+- [ ] Editor en tiempo real con chat integrado con IA para perfeccionar prompts
+- [ ] Almacenamiento de prompts y respuestas para análisis y reutilización
+- [ ] Personalización para diferentes modelos de IA (adaptación automática de sintaxis)
+- [ ] Documentación completa con Markdown y guías interactivas
 
-🚀 **Future Features:**
+🚀 **Futuras Características:**
 
-- Sharing templates with multiple users
-- Export to multiple formats and APIs
-- Premium template marketplace
+- Compartir plantillas con múltiples usuarios
+- Exportación a múltiples formatos y APIs
+- Marketplace de plantillas premium
 
-## Project Stack
+## Stack del Proyecto
 
-- **Frontend and Backend**
+- **Frontend y Backend**
 
   - Next.js
   - TypeScript
   - TailwindCSS
   - shadcn/ui
 
-- **State and Data Management**
+- **Estado y Manejo de Datos**
 
   - Zustand
   - TanStack Query
   - Zod
 
-- **Database and ORM**
+- **Base de datos y ORM**
 
   - PostgreSQL
   - Prisma
 
-- **Authentication**
+- **Autenticación**
 
   - Clerk
 
-- **AI and Processing**
+- **IA y Procesamiento**
 
   - Gemini API
   - MDX Editor
 
-- **Internationalization**
+- **Internacionalización**
 
   - next-i18next
 
-- **DevOps and CI/CD**
+- **DevOps y CI/CD**
 
-  - Husky and commit-lint
+  - Husky y commit-lint
   - Vercel
