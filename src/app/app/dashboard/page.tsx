@@ -1,5 +1,5 @@
 'use client';
-import RecentPrompts from '@/components/dashboard/recent-prompts';
+import RecentPrompts from '@/components/app/dashboard/recent-prompts';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import { getLocaleDate } from '@/lib/utils';

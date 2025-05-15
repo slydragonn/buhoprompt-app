@@ -1,4 +1,4 @@
-import Navbar from '@/components/layout/navbar';
+import AppSidebar from '@/components/app/layout/sidebar';
 import { SidebarProvider, SidebarTrigger } from '@/components/ui/sidebar';
 
 export default function DashboardLayout({
@@ -8,7 +8,7 @@ export default function DashboardLayout({
 }>) {
   return (
     <SidebarProvider>
-      <Navbar />
+      <AppSidebar />
       <main className='flex flex-1'>
         <SidebarTrigger />
         {children}

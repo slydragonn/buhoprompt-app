@@ -1,5 +1,5 @@
 import { SignedIn, SignedOut, SignInButton, SignUpButton, UserButton } from '@clerk/nextjs';
-import { ModeToggle } from '../theme/mode-toggle';
+import { ModeToggle } from '../../theme/mode-toggle';
 import Link from 'next/link';
 
 export default function Header() {

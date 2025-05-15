@@ -1,5 +1,5 @@
 import { FileText } from 'lucide-react';
-import { Badge } from '../ui/badge';
+import { Badge } from '../../ui/badge';
 export interface RecentPrompt {
   id: string;
   title: string;

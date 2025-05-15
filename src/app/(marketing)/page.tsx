@@ -1,4 +1,4 @@
-import Header from '@/components/layout/header';
+import Header from '@/components/landing/layout/header';
 import { Button } from '@/components/ui/button';
 import Image from 'next/image';
 import Link from 'next/link';

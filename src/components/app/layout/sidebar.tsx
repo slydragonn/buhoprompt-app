@@ -16,7 +16,7 @@ import {
 } from '@/components/ui/sidebar';
 import Link from 'next/link';
 import { SignedIn, UserButton, useUser } from '@clerk/nextjs';
-import { ModeToggle } from '../theme/mode-toggle';
+import { ModeToggle } from '../../theme/mode-toggle';
 
 // Menu items.
 const items = {
@@ -56,7 +56,7 @@ const items = {
   ],
 };
 
-export default function Navbar() {
+export default function AppSidebar() {
   const { user } = useUser();
 
   return (
