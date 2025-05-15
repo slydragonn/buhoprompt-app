@@ -1,6 +1,6 @@
 'use client';
 
-import { Home, Settings, Zap, BookTemplate, Book, Box } from 'lucide-react';
+import { Home, Zap, BookTemplate, Book, Box, Star } from 'lucide-react';
 
 import {
   Sidebar,
@@ -27,6 +27,11 @@ const items = {
       icon: Home,
     },
     {
+      title: 'Favorites',
+      url: '#',
+      icon: Star,
+    },
+    {
       title: 'Prompts',
       url: '#',
       icon: Zap,
@@ -35,11 +40,6 @@ const items = {
       title: 'Templates',
       url: '#',
       icon: BookTemplate,
-    },
-    {
-      title: 'Settings',
-      url: '#',
-      icon: Settings,
     },
   ],
   resources: [

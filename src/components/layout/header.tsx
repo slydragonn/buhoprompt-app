@@ -26,6 +26,7 @@ export default function Header() {
         </Link>
       </nav>
       <div className='flex gap-4 text-sm'>
+        <ModeToggle />
         <SignedOut>
           <SignInButton />
           <SignUpButton />
@@ -33,7 +34,6 @@ export default function Header() {
         <SignedIn>
           <UserButton />
         </SignedIn>
-        <ModeToggle />
       </div>
     </header>
   );
