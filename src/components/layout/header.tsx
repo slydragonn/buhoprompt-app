@@ -4,7 +4,7 @@ import Link from 'next/link';
 
 export default function Header() {
   return (
-    <header className='flex justify-between items-center w-full h-16 p-4 gap-4 border-b border-dashed border-neutral-300 dark:border-neutral-800'>
+    <header className='fixed flex justify-between items-center w-full h-16 p-4 gap-4 border-b border-dashed border-neutral-300 dark:border-neutral-800 bg-neutral-100/50 dark:bg-neutral-950/60 backdrop-blur'>
       <Link href='/' className='font-bold'>
         BuhoPrompt
       </Link>
