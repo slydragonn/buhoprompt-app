@@ -5,8 +5,27 @@ import Link from 'next/link';
 export default function Header() {
   return (
     <header className='flex justify-between items-center w-full h-16 p-4 gap-4 border-b border-dashed border-neutral-300 dark:border-neutral-800'>
-      <Link href='/'>BuhoPrompt</Link>
-      <div className='flex gap-4'>
+      <Link href='/' className='font-bold'>
+        BuhoPrompt
+      </Link>
+      <nav className='flex gap-4 text-sm dark:text-neutral-300 text-neutral-800'>
+        <Link href='/app/dashboard' className='hover:underline'>
+          App
+        </Link>
+        <Link href='#' className='hover:underline'>
+          Docs
+        </Link>
+        <Link href='#' className='hover:underline'>
+          Changelog
+        </Link>
+        <Link href='#' className='hover:underline'>
+          Extension
+        </Link>
+        <Link href='#' className='hover:underline'>
+          Contact
+        </Link>
+      </nav>
+      <div className='flex gap-4 text-sm'>
         <SignedOut>
           <SignInButton />
           <SignUpButton />

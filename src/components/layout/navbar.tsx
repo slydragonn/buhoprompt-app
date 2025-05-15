@@ -1,6 +1,6 @@
 'use client';
 
-import { Home, Settings, Zap, BookTemplate } from 'lucide-react';
+import { Home, Settings, Zap, BookTemplate, Book, Box } from 'lucide-react';
 
 import {
   Sidebar,
@@ -19,28 +19,42 @@ import { SignedIn, UserButton, useUser } from '@clerk/nextjs';
 import { ModeToggle } from '../theme/mode-toggle';
 
 // Menu items.
-const items = [
-  {
-    title: 'Home',
-    url: '/app/dashboard',
-    icon: Home,
-  },
-  {
-    title: 'Prompts',
-    url: '#',
-    icon: Zap,
-  },
-  {
-    title: 'Templates',
-    url: '#',
-    icon: BookTemplate,
-  },
-  {
-    title: 'Settings',
-    url: '#',
-    icon: Settings,
-  },
-];
+const items = {
+  application: [
+    {
+      title: 'Home',
+      url: '/app/dashboard',
+      icon: Home,
+    },
+    {
+      title: 'Prompts',
+      url: '#',
+      icon: Zap,
+    },
+    {
+      title: 'Templates',
+      url: '#',
+      icon: BookTemplate,
+    },
+    {
+      title: 'Settings',
+      url: '#',
+      icon: Settings,
+    },
+  ],
+  resources: [
+    {
+      title: 'Documentation',
+      url: '#',
+      icon: Book,
+    },
+    {
+      title: 'Extension',
+      url: '#',
+      icon: Box,
+    },
+  ],
+};
 
 export default function Navbar() {
   const { user } = useUser();
@@ -63,7 +77,24 @@ export default function Navbar() {
           <SidebarGroupLabel>Application</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
-              {items.map((item) => (
+              {items.application.map((item) => (
+                <SidebarMenuItem key={item.title}>
+                  <SidebarMenuButton asChild>
+                    <Link href={item.url}>
+                      <item.icon />
+                      <span>{item.title}</span>
+                    </Link>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+              ))}
+            </SidebarMenu>
+          </SidebarGroupContent>
+        </SidebarGroup>
+        <SidebarGroup>
+          <SidebarGroupLabel>Resources</SidebarGroupLabel>
+          <SidebarGroupContent>
+            <SidebarMenu>
+              {items.resources.map((item) => (
                 <SidebarMenuItem key={item.title}>
                   <SidebarMenuButton asChild>
                     <Link href={item.url}>
