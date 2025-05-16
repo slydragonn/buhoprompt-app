@@ -1,14 +1,8 @@
 'use client';
 
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from '@/components/ui/dialog';
+import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
 import { Button } from '@/components/ui/button';
-import { Check, ChevronsUpDown, Zap } from 'lucide-react';
+import { Check, ChevronsUpDown } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { z } from 'zod';
@@ -33,6 +27,7 @@ import {
 } from '@/components/ui/command';
 import { cn } from '@/lib/utils';
 import { toast } from 'sonner';
+import { ScrollArea } from '@/components/ui/scroll-area';
 
 const templates = [
   {
@@ -69,7 +64,9 @@ const formSchema = z.object({
   template: z.string(),
 });
 
-export default function CreatePromptDialog() {
+export default function CreatePromptDialog({
+  buttonComponent,
+}: Readonly<{ buttonComponent: React.ReactNode }>) {
   const promptForm = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
   });
@@ -92,124 +89,124 @@ export default function CreatePromptDialog() {
   }
 
   return (
-    <Dialog>
-      <DialogTrigger asChild>
-        <Button variant='outline' className='w-full sm:w-70 h-10'>
-          <Zap />
-          Nuevo Prompt
-        </Button>
-      </DialogTrigger>
-      <DialogContent>
-        <DialogHeader>
-          <DialogTitle className='text-center'>Crear Prompt</DialogTitle>
-        </DialogHeader>
-        <Form {...promptForm}>
-          <form onSubmit={promptForm.handleSubmit(onSubmit)} className='space-y-4'>
-            <FormField
-              control={promptForm.control}
-              name='title'
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Título</FormLabel>
-                  <FormControl>
-                    <Input placeholder='Example: Resume' {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={promptForm.control}
-              name='description'
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Descripción</FormLabel>
-                  <FormControl>
-                    <Input placeholder='Resume for a job application' {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={promptForm.control}
-              name='template'
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Template</FormLabel>
-                  <Popover>
-                    <PopoverTrigger asChild>
-                      <FormControl>
-                        <Button
-                          variant='outline'
-                          role='combobox'
-                          className={cn(
-                            'w-[200px] justify-between',
-                            !field.value && 'text-muted-foreground'
-                          )}
-                        >
-                          {field.value
-                            ? templates.find((template) => template.value === field.value)?.label
-                            : 'Seleccione un template...'}
-                          <ChevronsUpDown className='opacity-50' />
-                        </Button>
-                      </FormControl>
-                    </PopoverTrigger>
-                    <PopoverContent className='w-[200px] p-0'>
-                      <Command>
-                        <CommandInput placeholder='Buscar template...' className='h-9' />
-                        <CommandList>
-                          <CommandEmpty>Sin resultados</CommandEmpty>
-                          <CommandGroup>
-                            {templates.map((template) => (
-                              <CommandItem
-                                value={template.label}
-                                key={template.value}
-                                onSelect={() => {
-                                  promptForm.setValue('template', template.value);
-                                }}
-                              >
-                                {template.label}
-                                <Check
-                                  className={cn(
-                                    'ml-auto',
-                                    template.value === field.value ? 'opacity-100' : 'opacity-0'
-                                  )}
-                                />
-                              </CommandItem>
-                            ))}
-                          </CommandGroup>
-                        </CommandList>
-                      </Command>
-                    </PopoverContent>
-                  </Popover>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              control={promptForm.control}
-              name='content'
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Contenido</FormLabel>
-                  <FormControl>
-                    <Textarea
-                      className='resize-none h-28'
-                      placeholder='Generate a resume for a job application'
-                      {...field}
-                    />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <Button type='submit' className='w-full'>
-              Crear prompt
-            </Button>
-          </form>
-        </Form>
-      </DialogContent>
-    </Dialog>
+    <Sheet>
+      <SheetTrigger asChild>{buttonComponent}</SheetTrigger>
+      <SheetContent>
+        <ScrollArea className='max-h-[100vh]'>
+          <SheetHeader>
+            <SheetTitle>Crear Prompt</SheetTitle>
+          </SheetHeader>
+          <Form {...promptForm}>
+            <form
+              onSubmit={promptForm.handleSubmit(onSubmit)}
+              className='flex flex-col space-y-4 px-6 pb-6'
+            >
+              <FormField
+                control={promptForm.control}
+                name='title'
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Título</FormLabel>
+                    <FormControl>
+                      <Input placeholder='Example: Resume' {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={promptForm.control}
+                name='description'
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Descripción</FormLabel>
+                    <FormControl>
+                      <Input placeholder='Resume for a job application' {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={promptForm.control}
+                name='template'
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Template</FormLabel>
+                    <Popover>
+                      <PopoverTrigger asChild>
+                        <FormControl>
+                          <Button
+                            variant='outline'
+                            role='combobox'
+                            className={cn(
+                              'w-[200px] justify-between',
+                              !field.value && 'text-muted-foreground'
+                            )}
+                          >
+                            {field.value
+                              ? templates.find((template) => template.value === field.value)?.label
+                              : 'Seleccione un template...'}
+                            <ChevronsUpDown className='opacity-50' />
+                          </Button>
+                        </FormControl>
+                      </PopoverTrigger>
+                      <PopoverContent className='w-[200px] p-0'>
+                        <Command>
+                          <CommandInput placeholder='Buscar template...' className='h-9' />
+                          <CommandList>
+                            <CommandEmpty>Sin resultados</CommandEmpty>
+                            <CommandGroup>
+                              {templates.map((template) => (
+                                <CommandItem
+                                  value={template.label}
+                                  key={template.value}
+                                  onSelect={() => {
+                                    promptForm.setValue('template', template.value);
+                                  }}
+                                >
+                                  {template.label}
+                                  <Check
+                                    className={cn(
+                                      'ml-auto',
+                                      template.value === field.value ? 'opacity-100' : 'opacity-0'
+                                    )}
+                                  />
+                                </CommandItem>
+                              ))}
+                            </CommandGroup>
+                          </CommandList>
+                        </Command>
+                      </PopoverContent>
+                    </Popover>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={promptForm.control}
+                name='content'
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Contenido</FormLabel>
+                    <FormControl>
+                      <Textarea
+                        className='resize-none h-56'
+                        placeholder='Generate a resume for a job application'
+                        {...field}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <Button type='submit' className='self-end'>
+                Crear prompt
+              </Button>
+            </form>
+          </Form>
+        </ScrollArea>
+      </SheetContent>
+    </Sheet>
   );
 }

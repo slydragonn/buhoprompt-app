@@ -6,7 +6,7 @@ import MainLayout from '@/components/app/layout/main';
 import CreatePromptDialog from '@/components/app/prompts/prompt-dialog';
 import { Button } from '@/components/ui/button';
 import { useUser } from '@clerk/nextjs';
-import { BookTemplate, Clock8 } from 'lucide-react';
+import { BookTemplate, Clock8, Zap } from 'lucide-react';
 
 export default function Dashboard() {
   const { user, isLoaded } = useUser();
@@ -21,7 +21,14 @@ export default function Dashboard() {
         <div className='flex flex-col gap-5 items-center sm:items-start'>
           <Header message={`Bienvenido de nuevo, ${user?.firstName}! 👋`} />
           <div className='flex flex-col justify-center items-center sm:flex-row gap-5 w-full'>
-            <CreatePromptDialog />
+            <CreatePromptDialog
+              buttonComponent={
+                <Button variant='outline' className='w-full sm:w-70 h-10'>
+                  <Zap />
+                  Nuevo Prompt
+                </Button>
+              }
+            />
             <Button variant='outline' className='w-full sm:w-70 h-10'>
               <BookTemplate /> Nuevo Template
             </Button>
