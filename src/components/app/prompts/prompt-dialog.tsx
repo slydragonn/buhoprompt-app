@@ -1,6 +1,12 @@
 'use client';
 
-import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog';
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { Check, ChevronsUpDown, Zap } from 'lucide-react';
 import { Input } from '@/components/ui/input';
@@ -94,8 +100,11 @@ export default function CreatePromptDialog() {
         </Button>
       </DialogTrigger>
       <DialogContent>
+        <DialogHeader>
+          <DialogTitle className='text-center'>Crear Prompt</DialogTitle>
+        </DialogHeader>
         <Form {...promptForm}>
-          <form onSubmit={promptForm.handleSubmit(onSubmit)} className='space-y-6'>
+          <form onSubmit={promptForm.handleSubmit(onSubmit)} className='space-y-4'>
             <FormField
               control={promptForm.control}
               name='title'
