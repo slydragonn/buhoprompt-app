@@ -64,3 +64,7 @@ i18n.monthNames = [
 export function getLocaleDate(date: Date | string) {
   return dateFormat(date, 'fullDate');
 }
+
+export function getFullTime(date: Date | string) {
+  return dateFormat(date, 'mmmm d, yyyy - H:MM');
+}

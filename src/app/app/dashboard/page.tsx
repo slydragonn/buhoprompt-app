@@ -7,6 +7,7 @@ import CreatePromptDialog from '@/components/app/prompts/prompt-dialog';
 import { Button } from '@/components/ui/button';
 import { useUser } from '@clerk/nextjs';
 import { BookTemplate, Clock8, Zap } from 'lucide-react';
+import { examplePrompts } from '../prompts/page';
 
 export default function Dashboard() {
   const { user, isLoaded } = useUser();
@@ -38,7 +39,7 @@ export default function Dashboard() {
               <Clock8 className='w-4 h-4' />
               <h2 className='text-sm font-extralight'>Prompts Recientes</h2>
             </div>
-            <RecentPrompts prompts={[]} />
+            <RecentPrompts prompts={examplePrompts} />
           </div>
         </div>
       </MainLayout>

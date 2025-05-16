@@ -7,7 +7,7 @@ import PromptList from '@/components/app/prompts/prompt-list';
 import { Button } from '@/components/ui/button';
 import { Zap } from 'lucide-react';
 
-const examplePrompts: Prompt[] = [
+export const examplePrompts: Prompt[] = [
   {
     id: '1',
     title: 'Editor de Texto',

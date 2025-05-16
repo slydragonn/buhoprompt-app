@@ -2,6 +2,7 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Ellipsis, Star, Trash2 } from 'lucide-react';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
+import { getFullTime } from '@/lib/utils';
 
 function PrompCardMenu({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
@@ -34,21 +35,21 @@ export default function PromptCard({
 }: Readonly<PromptCardProps>) {
   return (
     <div className='relative flex flex-col justify-between gap-2 w-full sm:w-xl bg-neutral-50 dark:bg-neutral-900 border rounded-md overflow-hidden'>
-      <div className='flex flex-col gap-1 p-4'>
-        <h3 className='w-full font-medium flow-hidden overflow-hidden whitespace-nowrap text-ellipsis'>
+      <div className='flex flex-col w-full gap-1 p-4'>
+        <h3 className='max-w-3/4 md:max-w-full font-medium flow-hidden overflow-hidden whitespace-nowrap text-ellipsis'>
           {title}
         </h3>
-        <p className='text-sm font-extralight text-neutral-500 flow-hidden overflow-hidden whitespace-nowrap text-ellipsis'>
+        <p className='w-full text-sm font-extralight text-neutral-500 flow-hidden overflow-hidden whitespace-nowrap text-ellipsis'>
           {description}
         </p>
       </div>
-      <div className='flex justify-between gap-2 w-full bg-neutral-100 dark:bg-neutral-800 p-1'>
+      <div className='flex flex-wrap justify-between gap-2 w-full bg-neutral-100 dark:bg-neutral-800 p-1'>
         <Badge variant='outline'>{model}</Badge>
-        <span className='text-sm font-extralight text-neutral-500 justify-self-end align-self-end hidden sm:block'>
+        <span className='text-[13px] font-extralight text-neutral-500 dark:text-neutral-400 justify-self-end align-self-end hidden sm:block'>
           Creado: {createdAt.toLocaleDateString()}
         </span>
-        <span className='text-sm font-extralight text-neutral-500 justify-self-end align-self-end'>
-          Actualizado: {updatedAt.toUTCString()}
+        <span className='text-[13px] font-extralight text-neutral-500 dark:text-neutral-400 justify-self-end align-self-end'>
+          Actualizado: {getFullTime(updatedAt.toUTCString())}
         </span>
       </div>
       <div className='absolute top-1 right-1'>
