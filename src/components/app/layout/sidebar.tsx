@@ -17,6 +17,7 @@ import {
 import Link from 'next/link';
 import { SignedIn, UserButton, useUser } from '@clerk/nextjs';
 import { ModeToggle } from '../../theme/mode-toggle';
+import { usePathname } from 'next/navigation';
 
 // Menu items.
 const items = {
@@ -33,7 +34,7 @@ const items = {
     },
     {
       title: 'Prompts',
-      url: '#',
+      url: '/app/prompts',
       icon: Zap,
     },
     {
@@ -58,6 +59,7 @@ const items = {
 
 export default function AppSidebar() {
   const { user } = useUser();
+  const pathname = usePathname();
 
   return (
     <Sidebar>
@@ -79,7 +81,7 @@ export default function AppSidebar() {
             <SidebarMenu>
               {items.application.map((item) => (
                 <SidebarMenuItem key={item.title}>
-                  <SidebarMenuButton asChild isActive={item.url === '/app/dashboard'}>
+                  <SidebarMenuButton asChild isActive={item.url === pathname}>
                     <Link href={item.url}>
                       <item.icon />
                       <span>{item.title}</span>

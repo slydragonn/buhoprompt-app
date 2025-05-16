@@ -3,9 +3,10 @@ import RecentPrompts from '@/components/app/dashboard/recent-prompts';
 import Footer from '@/components/app/layout/footer';
 import Header from '@/components/app/layout/header';
 import MainLayout from '@/components/app/layout/main';
+import CreatePromptDialog from '@/components/app/prompts/prompt-dialog';
 import { Button } from '@/components/ui/button';
 import { useUser } from '@clerk/nextjs';
-import { BookTemplate, Clock8, Zap } from 'lucide-react';
+import { BookTemplate, Clock8 } from 'lucide-react';
 
 export default function Dashboard() {
   const { user, isLoaded } = useUser();
@@ -16,16 +17,12 @@ export default function Dashboard() {
 
   return (
     <>
-      <div className='bg-radial from-neutral-200 dark:from-neutral-800 from-10% to-neutral-100 dark:to-neutral-950 to-50% fixed inset-0 -z-10 -top-4/5 -right-4/5 rounded-lg' />
       <MainLayout>
         <div className='flex flex-col gap-5 items-center sm:items-start'>
           <Header message={`Bienvenido de nuevo, ${user?.firstName}! 👋`} />
           <div className='flex flex-col justify-center items-center sm:flex-row gap-5 w-full'>
-            <Button variant='outline' className='w-full sm:w-70 h-10 sm:h-20'>
-              <Zap />
-              Nuevo Prompt
-            </Button>
-            <Button variant='outline' className='w-full sm:w-70 h-10 sm:h-20'>
+            <CreatePromptDialog />
+            <Button variant='outline' className='w-full sm:w-70 h-10'>
               <BookTemplate /> Nuevo Template
             </Button>
           </div>
