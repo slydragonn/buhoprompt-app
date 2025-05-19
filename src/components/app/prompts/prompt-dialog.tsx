@@ -32,6 +32,10 @@ import { useCreatePrompt } from '@/hooks/use-prompts';
 
 const templates = [
   {
+    value: 'general',
+    label: 'General',
+  },
+  {
     value: 'investigation',
     label: 'Investigación',
   },

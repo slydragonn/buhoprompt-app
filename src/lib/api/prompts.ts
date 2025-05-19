@@ -70,7 +70,7 @@ export async function createPrompt(
 
   let template;
 
-  if (['programming', 'summary', 'images', 'investigation'].includes(templateId)) {
+  if (['programming', 'summary', 'images', 'investigation', 'general'].includes(templateId)) {
     template = templates[templateId as keyof typeof templates];
   } else {
     const response = await prisma.template.findUnique({
@@ -112,8 +112,6 @@ export async function createPrompt(
       templateId,
     },
   });
-
-  console.log(prompt);
 
   return prompt;
 }
