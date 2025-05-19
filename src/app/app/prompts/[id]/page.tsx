@@ -1,0 +1,189 @@
+'use client';
+
+import AiChat from '@/components/app/ai/chat';
+import { MarkdownEditor } from '@/components/app/prompts/prompt-markdown-editor';
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { ScrollArea } from '@/components/ui/scroll-area';
+import { usePrompt, useUpdatePrompt } from '@/hooks/use-prompts';
+import { getFullTime } from '@/lib/utils';
+import usePromptStore from '@/store/prompt.store';
+import { ArrowLeft, Copy, Save } from 'lucide-react';
+import { useParams, useRouter } from 'next/navigation';
+import { useCallback, useEffect, useState } from 'react';
+import { toast } from 'sonner';
+
+export default function Prompt() {
+  const router = useRouter();
+  const { id } = useParams();
+  const { data, isPending, isError, isSuccess, error } = usePrompt(id as string);
+  const promptMutation = useUpdatePrompt();
+  const { prompt, setPrompt } = usePromptStore();
+  const [isSyncing, setIsSyncing] = useState(false);
+  const [newChanges, setNewChanges] = useState('');
+
+  useEffect(() => {
+    if (isSuccess) {
+      setPrompt(data);
+      setIsSyncing(true);
+    }
+  }, [isSuccess]);
+
+  const handleChange = useCallback(
+    (value: string) => {
+      console.log(value);
+      if (isSyncing && value !== prompt.improved) {
+        setIsSyncing(false);
+      }
+      setNewChanges(value);
+    },
+    [isSyncing, prompt.improved]
+  );
+
+  const handleSave = () => {
+    promptMutation.mutate({
+      id: prompt.id,
+      title: prompt.title,
+      description: prompt.description,
+      improved: newChanges,
+    });
+
+    setPrompt({
+      ...prompt,
+      improved: newChanges,
+      updatedAt: new Date(),
+    });
+
+    setIsSyncing(true);
+
+    toast.success('Prompt guardado correctamente');
+  };
+
+  const handleCopy = () => {
+    navigator.clipboard.writeText(prompt.improved);
+    toast.success('Prompt copiado correctamente');
+  };
+
+  const handleExportToTxtFile = () => {
+    const blob = new Blob([prompt.improved], { type: 'text/plain' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = 'prompt.txt';
+    link.click();
+    URL.revokeObjectURL(url);
+  };
+
+  if (isPending) return <div className='w-full h-full text-center'>Cargando...</div>;
+
+  if (isError) return <div>Error: {error.message}</div>;
+
+  return (
+    <div className='container mx-auto p-6 max-w-7xl'>
+      {/* Header */}
+      <div className='flex items-center justify-between mb-6'>
+        <div className='flex items-center gap-4'>
+          <Button variant='ghost' size='sm' onClick={() => router.back()}>
+            <ArrowLeft className='w-4 h-4 mr-2' />
+            Volver
+          </Button>
+          <h1 className='font-bold'>{prompt?.title}</h1>
+        </div>
+        <div className='flex items-center gap-2'>
+          <Button variant='outline' size='sm' onClick={handleCopy}>
+            <Copy className='w-4 h-4 mr-2' />
+            Copiar
+          </Button>
+          <Button variant='default' size='sm' onClick={handleSave} disabled={isSyncing}>
+            <Save className='w-4 h-4 mr-2' />
+            {isSyncing ? 'Guardado' : 'Guardar'}
+          </Button>
+        </div>
+      </div>
+
+      <div className='flex flex-col gap-6'>
+        <div className='grid grid-cols-3 gap-6'>
+          <div className='col-span-2 flex flex-col gap-6'>
+            {/* Editor */}
+            <Card>
+              <CardHeader>
+                <CardTitle>Contenido del Prompt</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <ScrollArea className='h-[400px]'>
+                  <MarkdownEditor
+                    value={newChanges || prompt?.improved}
+                    onChange={(value) => handleChange(value)}
+                    placeholder='Escribe tu prompt aquí... Puedes usar markdown para formato.'
+                    className='h-[200px]'
+                  />
+                </ScrollArea>
+              </CardContent>
+            </Card>
+          </div>
+
+          <div className='flex flex-col gap-6'>
+            {/* Detalles del prompt */}
+            <Card className='col-span-1'>
+              <CardHeader>
+                <CardTitle>Detalles</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className='text-sm text-neutral-500 dark:text-neutral-400'>
+                  {prompt?.description}
+                </p>
+                <div className='flex flex-col gap-1 mt-4'>
+                  <p className='text-[13px] font-extralight text-neutral-500 dark:text-neutral-400'>
+                    Creado: {getFullTime(prompt?.createdAt)}
+                  </p>
+                  <p className='text-[13px] font-extralight text-neutral-500 dark:text-neutral-400'>
+                    Actualizado: {getFullTime(prompt?.updatedAt)}
+                  </p>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Acciones rápidas */}
+            <Card>
+              <CardHeader>
+                <CardTitle className='text-lg'>Acciones</CardTitle>
+              </CardHeader>
+              <CardContent className='space-y-3'>
+                <AiChat
+                  onApplySuggestion={handleChange}
+                  promptContent={newChanges || prompt?.improved || ''}
+                  className='w-full justify-start'
+                />
+                <Button variant='outline' className='w-full justify-start' onClick={handleCopy}>
+                  <Copy className='w-4 h-4 mr-2' />
+                  Copiar prompt
+                </Button>
+                {/* Botón para exportar como archivo */}
+                <Button
+                  variant='outline'
+                  className='w-full justify-start'
+                  onClick={handleExportToTxtFile}
+                >
+                  <svg
+                    className='w-4 h-4 mr-2'
+                    fill='none'
+                    stroke='currentColor'
+                    viewBox='0 0 24 24'
+                  >
+                    <path
+                      strokeLinecap='round'
+                      strokeLinejoin='round'
+                      strokeWidth={2}
+                      d='M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z'
+                    />
+                  </svg>
+                  Exportar archivo
+                </Button>
+              </CardContent>
+            </Card>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}

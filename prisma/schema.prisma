@@ -18,34 +18,19 @@ datasource db {
   // directUrl = env("DIRECT_DATABASE_URL")
 }
 
-model User {
-  id            String      @id @default(cuid())
-  clerkId       String      @unique
-  createdAt     DateTime    @default(now())
-  prompts       Prompt[]
-  templates     Template[]
-  userToken     UserToken?  // One-to-one relation
-  
-  @@index([clerkId])
-}
-
 model Prompt {
   id                 String    @id @default(cuid())
   title              String
-  description        String?   @db.Text
-  content            String
-  prevContent        String    @default("")
-  chatHistory        Json?     // [{req: "", res: ""}]
-  model              String    // like Chatgpt | Gemini | Claude | Deepseek | Sora | etc...
-  userId             String
-  user               User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  description        String    @db.Text
+  initial            String    @db.Text
+  improved           String
+  userClerkId        String    
   templateId         String?
   isFavorite         Boolean   @default(false)
   createdAt          DateTime  @default(now())
   updatedAt          DateTime  @updatedAt
   
-  @@unique([title, userId], name: "title_userId")
-  @@index([userId])
+  @@unique([title, userClerkId], name: "title_userId")
   @@index([templateId])
   @@index([createdAt(sort: Desc)])
 }
@@ -54,28 +39,25 @@ model Template {
   id            String    @id @default(cuid())
   title         String
   content       String
-  description   String?
-  userId        String
-  user          User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  description   String    @db.Text
+  userClerkId   String    
   isOfficial    Boolean   @default(false)
   model         String    
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
   
-  @@unique([title, userId], name: "title_userId")
-  @@index([userId])
+  @@unique([title, userClerkId], name: "title_userId")
   @@index([isOfficial, createdAt(sort: Desc)])
 }
 
 model UserToken {
   id            String      @id @default(cuid())
-  userId        String      @unique
-  user          User        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userClerkId   String      @unique
   tokensUsed    Int         @default(0)
   tokensLimit   Int         @default(10)
-  resetAt       DateTime    @default(now())  // Date when token count resets
+  resetAt       DateTime    @default(now())
   createdAt     DateTime    @default(now())
   updatedAt     DateTime    @updatedAt
-  
-  @@index([userId])
+
+  @@index([userClerkId])
 }

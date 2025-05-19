@@ -1,6 +1,6 @@
 'use client';
 
-import { Home, Zap, BookTemplate, Book, Box, Star } from 'lucide-react';
+import { Home, Zap, BookTemplate, Book, Box } from 'lucide-react';
 
 import {
   Sidebar,
@@ -26,11 +26,6 @@ const items = {
       title: 'Inicio',
       url: '/app/dashboard',
       icon: Home,
-    },
-    {
-      title: 'Favoritos',
-      url: '#',
-      icon: Star,
     },
     {
       title: 'Prompts',

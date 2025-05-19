@@ -2,7 +2,7 @@
 
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from '@/components/ui/sheet';
 import { Button } from '@/components/ui/button';
-import { Check, ChevronsUpDown } from 'lucide-react';
+import { Check, ChevronsUpDown, Loader2 } from 'lucide-react';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
 import { z } from 'zod';
@@ -28,6 +28,7 @@ import {
 import { cn } from '@/lib/utils';
 import { toast } from 'sonner';
 import { ScrollArea } from '@/components/ui/scroll-area';
+import { useCreatePrompt } from '@/hooks/use-prompts';
 
 const templates = [
   {
@@ -39,12 +40,12 @@ const templates = [
     label: 'Programación',
   },
   {
-    value: 'writing',
-    label: 'Escritura',
+    value: 'images',
+    label: 'Generación de imágenes',
   },
   {
-    value: 'design',
-    label: 'Diseño',
+    value: 'summary',
+    label: 'Resumen',
   },
 ] as const;
 
@@ -71,21 +72,21 @@ export default function CreatePromptDialog({
     resolver: zodResolver(formSchema),
   });
 
-  function onSubmit(data: z.infer<typeof formSchema>) {
-    console.log(data);
-    const dataToShow = {
-      title: data.title.slice(0, 10) + '...',
-      description: data.description.slice(0, 10) + '...',
-      content: data.content.slice(0, 10) + '...',
-      template: data.template,
-    };
-    toast('Enviaste los siguientes datos:', {
-      description: (
-        <pre className='mt-2 w-[320px] rounded-md bg-slate-950 p-4'>
-          <code className='text-white'>{JSON.stringify(dataToShow, null, 2)}</code>
-        </pre>
-      ),
-    });
+  const promptMutation = useCreatePrompt();
+
+  async function onSubmit() {
+    try {
+      await promptMutation.mutateAsync({
+        title: promptForm.getValues('title'),
+        description: promptForm.getValues('description'),
+        initial: promptForm.getValues('content'),
+        templateId: promptForm.getValues('template'),
+      });
+      toast.success('Prompt creado correctamente');
+    } catch (error) {
+      console.error('Error al crear el prompt:', error);
+      toast.error('Error al crear el prompt');
+    }
   }
 
   return (
@@ -200,8 +201,9 @@ export default function CreatePromptDialog({
                   </FormItem>
                 )}
               />
-              <Button type='submit' className='self-end'>
-                Crear prompt
+              <Button type='submit' className='self-end' disabled={promptMutation.isPending}>
+                {promptMutation.isPending && <Loader2 className='h-4 w-4 animate-spin' />}
+                Crear Prompt
               </Button>
             </form>
           </Form>

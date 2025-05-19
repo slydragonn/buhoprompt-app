@@ -5,39 +5,6 @@ const prisma = new PrismaClient();
 async function main() {
   console.log('Seeding database...');
 
-  // Create example users with unique clerkId
-  const user1 = await prisma.user.upsert({
-    where: { clerkId: 'clerk_example_id_1' },
-    update: {},
-    create: {
-      clerkId: 'clerk_example_id_1',
-      userToken: {
-        create: {
-          tokensUsed: 2,
-          tokensLimit: 10,
-          resetAt: new Date(new Date().setDate(new Date().getDate() + 1)), // Reseteo diario
-        },
-      },
-    },
-  });
-
-  const user2 = await prisma.user.upsert({
-    where: { clerkId: 'clerk_example_id_2' },
-    update: {},
-    create: {
-      clerkId: 'clerk_example_id_2',
-      userToken: {
-        create: {
-          tokensUsed: 5,
-          tokensLimit: 10,
-          resetAt: new Date(new Date().setDate(new Date().getDate() + 1)), // Reseteo diario
-        },
-      },
-    },
-  });
-
-  console.log(`Created users: ${user1.id}, ${user2.id}`);
-
   // Create official templates
   const officialTemplates = [
     {
@@ -47,7 +14,7 @@ async function main() {
       description: 'Mejora la claridad y calidad de tus textos con edición profesional.',
       model: 'Claude',
       isOfficial: true,
-      userId: user1.id,
+      userClerkId: 'user_1',
     },
     {
       title: 'Consultor de Marketing',
@@ -56,7 +23,7 @@ async function main() {
       description: 'Obtén consejos profesionales para tus estrategias de marketing.',
       model: 'ChatGPT',
       isOfficial: true,
-      userId: user1.id,
+      userClerkId: 'user_2',
     },
     {
       title: 'Programador Asistente',
@@ -64,7 +31,7 @@ async function main() {
       description: 'Asistencia con código en diferentes lenguajes de programación.',
       model: 'Gemini',
       isOfficial: true,
-      userId: user1.id,
+      userClerkId: 'user_3',
     },
   ];
 
@@ -73,7 +40,7 @@ async function main() {
       where: {
         title_userId: {
           title: template.title,
-          userId: template.userId,
+          userClerkId: template.userClerkId,
         },
       },
       update: template,
@@ -91,7 +58,7 @@ async function main() {
       description: 'Template personalizado para uso específico',
       model: 'Claude',
       isOfficial: false,
-      userId: user1.id,
+      userClerkId: 'user_1',
     },
     {
       title: 'Análisis de Datos',
@@ -99,7 +66,7 @@ async function main() {
       description: 'Template para análisis de datos e insights',
       model: 'Deepseek',
       isOfficial: false,
-      userId: user2.id,
+      userClerkId: 'user_2',
     },
   ];
 
@@ -108,7 +75,7 @@ async function main() {
       where: {
         title_userId: {
           title: template.title,
-          userId: template.userId,
+          userClerkId: template.userClerkId,
         },
       },
       update: template,
@@ -127,86 +94,85 @@ async function main() {
     where: { title: 'Consultor de Marketing' },
   });
 
-  // Example of chat history for the prompts
-  const chatHistoryExample1 = [
-    {
-      req: '¿Puedes revisar mi texto para mejorar la claridad?',
-      res: 'Por supuesto, he revisado tu texto y tengo algunas sugerencias para mejorar la claridad y coherencia.',
-    },
-    {
-      req: '¿Qué opinas del segundo párrafo?',
-      res: 'El segundo párrafo podría beneficiarse de oraciones más cortas y precisas. También recomendaría añadir un ejemplo concreto para ilustrar mejor tu punto.',
-    },
-  ];
-
-  const chatHistoryExample2 = [
-    {
-      req: 'Necesito ideas para promocionar mi producto en redes sociales',
-      res: 'Aquí tienes algunas estrategias efectivas para promocionar tu producto en diferentes plataformas de redes sociales.',
-    },
-    {
-      req: '¿Cómo puedo medir el éxito de la campaña?',
-      res: 'Para medir el éxito de tu campaña de redes sociales, deberías centrarte en estos KPIs clave: engagement, conversiones, alcance y ROI.',
-    },
-  ];
-
   // Create prompts for users
   const prompts = [
     {
       title: 'Revisión documento importante',
       description: 'Revisión de mi propuesta para cliente potencial',
-      content:
+      initial:
         'Por favor, revisa este documento para una presentación importante: [contenido del documento]',
-      prevContent: 'He revisado el documento y aquí están mis sugerencias...',
-      chatHistory: chatHistoryExample1,
-      model: 'Claude',
-      userId: user1.id,
+      improved: '',
+      userClerkId: 'user_1',
       templateId: templateEditor?.id,
       isFavorite: true,
     },
     {
       title: 'Estrategia redes sociales',
       description: 'Plan de marketing para lanzamiento de producto',
-      content:
+      initial:
         'Necesito una estrategia de redes sociales para el lanzamiento de nuestro nuevo producto de software',
-      prevContent: 'Aquí tienes una estrategia de redes sociales para tu lanzamiento...',
-      chatHistory: chatHistoryExample2,
-      model: 'ChatGPT',
-      userId: user1.id,
+      improved: '',
+      userClerkId: 'user_2',
       templateId: templateMarketing?.id,
       isFavorite: false,
     },
     {
       title: 'Corrección informe anual',
       description: 'Revisar errores gramaticales en informe',
-      content: 'Revisa este informe anual para errores gramaticales y mejoras de estilo',
-      prevContent: '',
-      chatHistory: null,
-      model: 'Gemini',
-      userId: user2.id,
+      initial: 'Revisa este informe anual para errores gramaticales y mejoras de estilo',
+      improved: '',
+      userClerkId: 'user_3',
       templateId: templateEditor?.id,
       isFavorite: true,
     },
   ];
 
   for (const prompt of prompts) {
-    const update = {
-      ...prompt,
-      chatHistory: prompt.chatHistory ? JSON.parse(JSON.stringify(prompt.chatHistory)) : undefined,
-    };
     await prisma.prompt.upsert({
       where: {
         title_userId: {
           title: prompt.title,
-          userId: prompt.userId,
+          userClerkId: prompt.userClerkId,
         },
       },
-      update,
-      create: update,
+      update: prompt,
+      create: prompt,
+    });
+  }
+  console.log('Created prompts');
+
+  // Create user tokens
+  console.log('Creating user tokens');
+
+  const userTokens = [
+    {
+      userClerkId: 'user_1',
+      tokensUsed: 0,
+      tokensLimit: 10,
+    },
+    {
+      userClerkId: 'user_2',
+      tokensUsed: 0,
+      tokensLimit: 10,
+    },
+    {
+      userClerkId: 'user_3',
+      tokensUsed: 0,
+      tokensLimit: 10,
+    },
+  ];
+
+  for (const token of userTokens) {
+    await prisma.userToken.upsert({
+      where: {
+        userClerkId: token.userClerkId,
+      },
+      update: token,
+      create: token,
     });
   }
 
-  console.log('Created prompts');
+  console.log('Created user tokens');
   console.log('Database seeding completed successfully');
 }
 

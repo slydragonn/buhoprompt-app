@@ -1,14 +1,26 @@
-export interface Prompt {
+export interface PromptData {
   id: string;
   title: string;
   description: string;
-  content: string;
-  prevContent: string;
-  chatHistory: []; // [{req: "", res: ""}]
-  model: 'chatgpt' | 'claude' | 'deepseek' | 'sora' | 'gemini';
-  userId: string;
+  initial: string;
+  improved: string;
+  userClerkId: string;
   templateId: string;
   isFavorite: boolean;
   createdAt: Date;
   updatedAt: Date;
+}
+
+export interface PromptUpdateValue {
+  id: string;
+  title: string;
+  description: string;
+  improved: string;
+}
+
+export interface PromptPostValue {
+  title: string;
+  description: string;
+  initial: string;
+  templateId: string;
 }

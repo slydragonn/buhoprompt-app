@@ -1,13 +1,12 @@
 'use client';
-import RecentPrompts from '@/components/app/dashboard/recent-prompts';
 import Footer from '@/components/app/layout/footer';
 import Header from '@/components/app/layout/header';
 import MainLayout from '@/components/app/layout/main';
 import CreatePromptDialog from '@/components/app/prompts/prompt-dialog';
+import PromptList from '@/components/app/prompts/prompt-list';
 import { Button } from '@/components/ui/button';
 import { useUser } from '@clerk/nextjs';
 import { BookTemplate, Clock8, Zap } from 'lucide-react';
-import { examplePrompts } from '../prompts/page';
 
 export default function Dashboard() {
   const { user, isLoaded } = useUser();
@@ -39,7 +38,7 @@ export default function Dashboard() {
               <Clock8 className='w-4 h-4' />
               <h2 className='text-sm font-extralight'>Prompts Recientes</h2>
             </div>
-            <RecentPrompts prompts={examplePrompts} />
+            <PromptList filter='recent' />
           </div>
         </div>
       </MainLayout>
