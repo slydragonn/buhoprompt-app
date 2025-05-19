@@ -3,11 +3,72 @@ import { MarkdownEditor } from '@/components/app/prompts/prompt-markdown-editor'
 import { Button } from '@/components/ui/button';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Separator } from '@/components/ui/separator';
+import { useTemplate, useUpdateTemplate } from '@/hooks/use-templates';
+import { getFullTime } from '@/lib/utils';
+import useTemplateStore from '@/store/template-store';
 import { ArrowLeft, Copy, Save } from 'lucide-react';
-import { useRouter } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
+import { useCallback, useEffect, useState } from 'react';
+import { toast } from 'sonner';
 
 export default function Template() {
   const router = useRouter();
+  const { id } = useParams();
+  const { data, isPending, isError, isSuccess, error } = useTemplate(id as string);
+  const templateMutation = useUpdateTemplate();
+  const { template, setTemplate } = useTemplateStore();
+  const [isSyncing, setIsSyncing] = useState(true);
+  const [newChanges, setNewChanges] = useState('');
+
+  useEffect(() => {
+    if (isSuccess) {
+      setTemplate(data);
+      setIsSyncing(true);
+    }
+  }, [isSuccess]);
+
+  const handleChange = useCallback(
+    (value: string) => {
+      console.log(value);
+      if (isSyncing && value !== template.content) {
+        setIsSyncing(false);
+      }
+      setNewChanges(value);
+    },
+    [isSyncing, template.content]
+  );
+
+  const handleSave = () => {
+    templateMutation.mutate({
+      id: template.id,
+      title: template.title,
+      description: template.description,
+      content: newChanges,
+    });
+
+    setTemplate({
+      ...template,
+      content: newChanges,
+      updatedAt: new Date(),
+    });
+
+    setIsSyncing(true);
+
+    toast.success('Template guardado correctamente');
+  };
+
+  const handleCopy = () => {
+    navigator.clipboard.writeText(template.content);
+    toast.success('Template copiado correctamente');
+  };
+
+  if (isPending) {
+    return <div>Cargando...</div>;
+  }
+
+  if (isError) {
+    return <div>Error: {error?.message}</div>;
+  }
 
   return (
     <div className='container mx-auto p-6 max-w-7xl'>
@@ -21,21 +82,21 @@ export default function Template() {
           <h1 className='font-bold'>Template</h1>
         </div>
         <div className='flex items-center gap-2'>
-          <Button variant='outline' size='sm'>
+          <Button variant='outline' size='sm' onClick={handleCopy}>
             <Copy className='w-4 h-4 mr-2' />
             Copiar
           </Button>
-          <Button variant='default' size='sm'>
+          <Button variant='default' size='sm' onClick={handleSave} disabled={isSyncing}>
             <Save className='w-4 h-4 mr-2' />
-            Guardar
+            {isSyncing ? 'Guardado' : 'Guardar'}
           </Button>
         </div>
       </div>
 
       <ScrollArea className='h-[calc(100vh-100px)]'>
         <MarkdownEditor
-          onChange={() => console.log('onChange')}
-          value='# Template'
+          onChange={(content) => handleChange(content)}
+          value={newChanges || template.content || template.base}
           className='h-full'
         />
       </ScrollArea>
@@ -44,16 +105,14 @@ export default function Template() {
       <div className='flex flex-col gap-2 justify-between mt-6 w-full'>
         <div>
           <span className='text-sm font-medium'>Descripción</span>
-          <p className='text-sm font-light'>
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Velit pariatur libero iure
-            accusamus asperiores laborum minima facilis beatae veniam! Dolorum obcaecati error iste
-            sunt, nesciunt libero neque minima quibusdam ab.
-          </p>
+          <p className='text-sm font-light'>{template.description}</p>
         </div>
         <Separator />
         <div className='flex justify-between gap-2'>
-          <span className='text-sm font-extralight'>Last updated: 2023-06-24</span>
-          <span className='text-sm font-extralight'>Created by: @buhoprompt</span>
+          <span className='text-sm font-extralight'>
+            Última actualización: {getFullTime(template.updatedAt)}{' '}
+          </span>
+          <span className='text-sm font-extralight'>Creado: {getFullTime(template.createdAt)}</span>
         </div>
       </div>
     </div>

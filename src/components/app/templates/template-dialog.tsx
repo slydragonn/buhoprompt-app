@@ -21,6 +21,7 @@ import {
 } from '@/components/ui/select';
 import { useCreateTemplate } from '@/hooks/use-templates';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { Loader2 } from 'lucide-react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 import { z } from 'zod';
@@ -148,7 +149,16 @@ export default function CreateTemplateDialog({
               )}
             />
             <DialogFooter>
-              <Button type='submit'>Crear</Button>
+              <Button type='submit' disabled={templateMutation.isPending}>
+                {templateMutation.isPending ? (
+                  <>
+                    <Loader2 className='mr-2 h-4 w-4 animate-spin' />
+                    Creando Template...
+                  </>
+                ) : (
+                  'Crear Template'
+                )}
+              </Button>
             </DialogFooter>
           </form>
         </Form>

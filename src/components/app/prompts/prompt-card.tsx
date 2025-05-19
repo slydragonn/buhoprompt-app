@@ -8,7 +8,7 @@ import usePromptsStore from '@/store/prompts-store';
 import PromptAlert from './prompt-alert';
 import { toast } from 'sonner';
 
-function PrompCardMenu({ children }: Readonly<{ children: React.ReactNode }>) {
+export function PrompCardMenu({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <Popover>
       <PopoverTrigger asChild>
@@ -58,8 +58,8 @@ export default function PromptCard({
           {description}
         </p>
       </div>
-      <div className='flex flex-wrap justify-between gap-2 w-full bg-neutral-100 dark:bg-neutral-800 p-1'>
-        <span className='text-[13px] font-extralight text-neutral-500 dark:text-neutral-400 justify-self-end align-self-end hidden sm:block'>
+      <div className='flex flex-wrap justify-between gap-2 w-full bg-neutral-100 dark:bg-neutral-800 p-2'>
+        <span className='text-[13px] font-extralight text-neutral-500 dark:text-neutral-400 justify-self-end align-self-end'>
           Creado: {getFullTime(createdAt)}
         </span>
         <span className='text-[13px] font-extralight text-neutral-500 dark:text-neutral-400 justify-self-end align-self-end'>

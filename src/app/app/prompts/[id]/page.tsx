@@ -7,7 +7,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { usePrompt, useUpdatePrompt } from '@/hooks/use-prompts';
 import { getFullTime } from '@/lib/utils';
-import usePromptStore from '@/store/prompt.store';
+import usePromptStore from '@/store/prompt-store';
 import { ArrowLeft, Copy, Save } from 'lucide-react';
 import { useParams, useRouter } from 'next/navigation';
 import { useCallback, useEffect, useState } from 'react';
