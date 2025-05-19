@@ -34,7 +34,7 @@ const items = {
     },
     {
       title: 'Templates',
-      url: '#',
+      url: '/app/templates',
       icon: BookTemplate,
     },
   ],

@@ -11,7 +11,6 @@ export interface TemplateData {
 
 export interface TemplateCreateValue {
   title: string;
-  content: string;
   description: string;
   base: string;
 }
