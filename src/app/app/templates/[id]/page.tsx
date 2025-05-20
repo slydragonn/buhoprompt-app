@@ -25,6 +25,7 @@ export default function Template() {
   useEffect(() => {
     if (isSuccess) {
       setTemplate(data);
+      setNewChanges(data.content);
       setIsSyncing(true);
     }
   }, [isSuccess]);
@@ -78,13 +79,21 @@ export default function Template() {
             Volver
           </Button>
           <h1 className='font-bold'>{template.title}</h1>
+          {!isSyncing && (
+            <span className='text-sm text-orange-500 font-medium'>• Cambios sin guardar</span>
+          )}
         </div>
         <div className='flex items-center gap-2'>
           <Button variant='outline' size='sm' onClick={handleCopy}>
             <Copy className='w-4 h-4 mr-2' />
             Copiar
           </Button>
-          <Button variant='default' size='sm' onClick={handleSave} disabled={isSyncing}>
+          <Button
+            variant={isSyncing ? 'default' : 'outline'}
+            size='sm'
+            onClick={handleSave}
+            disabled={isSyncing}
+          >
             <Save className='w-4 h-4 mr-2' />
             {isSyncing ? 'Guardado' : 'Guardar'}
           </Button>
@@ -94,7 +103,7 @@ export default function Template() {
       <ScrollArea className='h-[calc(100vh-100px)]'>
         <MarkdownEditor
           onChange={(content) => handleChange(content)}
-          value={newChanges || template.content || template.base}
+          value={newChanges || template.base}
           className='h-full'
         />
       </ScrollArea>

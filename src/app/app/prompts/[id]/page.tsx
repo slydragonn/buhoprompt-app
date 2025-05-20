@@ -27,6 +27,7 @@ export default function Prompt() {
   useEffect(() => {
     if (isSuccess) {
       setPrompt(data);
+      setNewChanges(data.improved);
       setIsSyncing(true);
     }
   }, [isSuccess]);
@@ -90,13 +91,21 @@ export default function Prompt() {
             Volver
           </Button>
           <h1 className='font-bold'>{prompt?.title}</h1>
+          {!isSyncing && (
+            <span className='text-sm text-orange-500 font-medium'>• Cambios sin guardar</span>
+          )}
         </div>
         <div className='flex items-center gap-2'>
           <Button variant='outline' size='sm' onClick={handleCopy}>
             <Copy className='w-4 h-4 mr-2' />
             Copiar
           </Button>
-          <Button variant='default' size='sm' onClick={handleSave} disabled={isSyncing}>
+          <Button
+            variant={isSyncing ? 'default' : 'outline'}
+            size='sm'
+            onClick={handleSave}
+            disabled={isSyncing}
+          >
             <Save className='w-4 h-4 mr-2' />
             {isSyncing ? 'Guardado' : 'Guardar'}
           </Button>
@@ -114,7 +123,7 @@ export default function Prompt() {
               <CardContent>
                 <ScrollArea className='h-[400px]'>
                   <MarkdownEditor
-                    value={newChanges || prompt?.improved}
+                    value={newChanges}
                     onChange={(value) => handleChange(value)}
                     placeholder='Escribe tu prompt aquí... Puedes usar markdown para formato.'
                     className='h-[200px]'
@@ -153,7 +162,7 @@ export default function Prompt() {
               <CardContent className='space-y-3'>
                 <AiChat
                   onApplySuggestion={handleChange}
-                  promptContent={newChanges || prompt?.improved || ''}
+                  promptContent={newChanges || ''}
                   className='w-full justify-start'
                 />
                 <Button variant='outline' className='w-full justify-start' onClick={handleCopy}>
