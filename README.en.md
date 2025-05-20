@@ -14,7 +14,6 @@
 ![GitHub license](https://img.shields.io/github/license/slydragonn/buhoprompt-app)
 ![GitHub last commit](https://img.shields.io/github/last-commit/slydragonn/buhoprompt-app)
 ![GitHub release](https://img.shields.io/github/v/release/slydragonn/buhoprompt-app)
-![GitHub contributors](https://img.shields.io/github/contributors/slydragonn/buhoprompt-app)
 ![Maintenance](https://img.shields.io/badge/Maintained-Actively-green)
 
 </div>
@@ -28,7 +27,7 @@
 </div>
 
 The ultimate platform for prompt engineering
-**🚧 Under development 🚧**
+🚧 In Development 🚧
 
 ## Getting Started
 
@@ -44,62 +43,39 @@ To build the application:
 npm run build
 ```
 
-## **📝 Description**
+## 📝 Description
 
-Buho Prompt is a comprehensive platform designed for professionals, content creators, and enthusiasts looking to optimize their interactions with artificial intelligence. This tool allows you to create, store, edit, and refine prompts for different AI models, focusing on prompt engineering best practices.
+Buho Prompt is a comprehensive platform designed for professionals, content creators, and enthusiasts looking to optimize their interactions with artificial intelligence. This tool allows you to create, store, edit, and refine prompts for various AI models, with a focus on prompt engineering best practices.
 
-Our goal is to democratize the power of prompt engineering, enabling users to maximize the capabilities of different AI models without needing technical expertise, while also offering advanced tools for professionals.
+The goal is to democratize the power of prompt engineering, enabling users to get the most out of different AI models without needing to be technical experts, while still offering advanced tools for professionals.
 
-🔐 We implement robust authentication with Clerk, leveraging email login, social networks, and two-factor authentication to ensure the security of prompts and user data.
+🔐 We’ve implemented robust authentication with Clerk, supporting email and social logins to ensure the security of prompts and user data.
 
-✨ **Key Features:**
+**✨ Key Features:**
 
-- [ ] Library of prompt templates by categories (images, programming, research, etc.)
-- [ ] Real-time editor with integrated AI chat for prompt refinement
-- [ ] Storage of prompts and responses for analysis and reuse
-- [ ] Customization for different AI models (automatic syntax adaptation)
-- [ ] Complete documentation with Markdown and interactive guides
+- [x] Prompt generator based on specific templates
+- [x] Real-time editor with integrated AI chat to refine prompts
+- [x] Creation and storage of custom templates
+- [ ] Full documentation with Markdown and interactive guides
+- [ ] Browser extension to interact with generated prompts in chats (ChatGPT, Gemini, DeepSeek, Claude)
 
-🚀 **Future Features:**
+**🚀 Upcoming Features:**
 
-- Sharing templates with multiple users
-- Export to multiple formats and APIs
+- Share templates with multiple users
+- Export to various formats and APIs
 - Premium template marketplace
 
-## Project Stack
+## Tech Stack
 
-- **Frontend and Backend**
-
-  - Next.js
-  - TypeScript
-  - TailwindCSS
-  - shadcn/ui
-
-- **State and Data Management**
-
-  - Zustand
-  - TanStack Query
-  - Zod
-
-- **Database and ORM**
-
-  - PostgreSQL
-  - Prisma
-
-- **Authentication**
-
-  - Clerk
-
-- **AI and Processing**
-
-  - Gemini API
-  - MDX Editor
-
-- **Internationalization**
-
-  - next-i18next
-
-- **DevOps and CI/CD**
-
-  - Husky and commit-lint
-  - Vercel
+- Next.js
+- TypeScript
+- Clerk
+- TailwindCSS
+- shadcn/ui
+- Zustand
+- TanStack Query
+- Zod
+- PostgreSQL
+- Prisma
+- Gemini API
+- Codemirror

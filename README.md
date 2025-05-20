@@ -14,7 +14,6 @@
 ![GitHub license](https://img.shields.io/github/license/slydragonn/buhoprompt-app)
 ![GitHub last commit](https://img.shields.io/github/last-commit/slydragonn/buhoprompt-app)
 ![GitHub release](https://img.shields.io/github/v/release/slydragonn/buhoprompt-app)
-![GitHub contributors](https://img.shields.io/github/contributors/slydragonn/buhoprompt-app)
 ![Maintenance](https://img.shields.io/badge/Maintained-Actively-green)
 
 </div>
@@ -50,15 +49,15 @@ Buho Prompt es una plataforma completa diseñada para profesionales, creadores d
 
 El objetivo es democratizar el poder del prompt engineering, permitiendo a los usuarios aprovechar al máximo las capacidades de los diferentes modelos de IA sin necesidad de ser expertos técnicos, mientras ofrece herramientas avanzadas para profesionales.
 
-🔐 Implementamos autenticación robusta con Clerk, aprovechando inicio de sesión con email, redes sociales y autenticación de doble factor para garantizar la seguridad de los prompts y datos de usuarios.
+🔐 Implementamos autenticación robusta con Clerk, aprovechando inicio de sesión con email, redes sociales para la seguridad de los prompts y datos de usuarios.
 
 ✨ **Funcionalidades principales:**
 
-- [ ] Biblioteca de plantillas de prompts por categorías (imágenes, programación, investigación, etc.)
-- [ ] Editor en tiempo real con chat integrado con IA para perfeccionar prompts
-- [ ] Almacenamiento de prompts y respuestas para análisis y reutilización
-- [ ] Personalización para diferentes modelos de IA (adaptación automática de sintaxis)
+- [x] Generador de prompts segun plantillas específicas
+- [x] Editor en tiempo real con chat integrado con IA para perfeccionar prompts
+- [x] Creación y Almacenamiento de plantillas personalizadas
 - [ ] Documentación completa con Markdown y guías interactivas
+- [ ] Extensión de navegador para interactuar con los prompts generados en chats (chatgpt, gemini, deepseek, claude)
 
 🚀 **Futuras Características:**
 
@@ -68,38 +67,15 @@ El objetivo es democratizar el poder del prompt engineering, permitiendo a los u
 
 ## Stack del Proyecto
 
-- **Frontend y Backend**
-
-  - Next.js
-  - TypeScript
-  - TailwindCSS
-  - shadcn/ui
-
-- **Estado y Manejo de Datos**
-
-  - Zustand
-  - TanStack Query
-  - Zod
-
-- **Base de datos y ORM**
-
-  - PostgreSQL
-  - Prisma
-
-- **Autenticación**
-
-  - Clerk
-
-- **IA y Procesamiento**
-
-  - Gemini API
-  - MDX Editor
-
-- **Internacionalización**
-
-  - next-i18next
-
-- **DevOps y CI/CD**
-
-  - Husky y commit-lint
-  - Vercel
+- Next.js
+- TypeScript
+- Clerk
+- TailwindCSS
+- shadcn/ui
+- Zustand
+- TanStack Query
+- Zod
+- PostgreSQL
+- Prisma
+- Gemini API
+- Codemirror
