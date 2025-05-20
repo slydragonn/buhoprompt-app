@@ -10,8 +10,6 @@ export async function GET() {
 
   const prompts = await getPrompts(userId);
 
-  console.log('api', prompts);
-
   return NextResponse.json(prompts);
 }
 

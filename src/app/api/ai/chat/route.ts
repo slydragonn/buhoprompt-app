@@ -103,7 +103,7 @@ Usuario: ${userPrompt}`;
     return NextResponse.json({
       response: text,
       improvedPrompt,
-      tokensRemaining: userToken ? userToken.tokensLimit - userToken.tokensUsed - 1 : 999,
+      tokensRemaining: userToken ? userToken.tokensLimit - userToken.tokensUsed - 1 : 10,
     });
   } catch (error) {
     console.error('Error in AI chat:', error);
