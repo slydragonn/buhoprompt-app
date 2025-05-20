@@ -39,6 +39,14 @@ export const useCreatePrompt = () => {
         body: JSON.stringify(newPrompt),
       });
 
+      if (!response.ok) {
+        if (response.status === 429) {
+          throw new Error('Limite de creación de prompts alcanzado');
+        } else {
+          throw new Error('Error al crear el prompt');
+        }
+      }
+
       return response.json();
     },
     onSuccess: (data) => {

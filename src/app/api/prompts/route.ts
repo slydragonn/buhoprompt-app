@@ -33,7 +33,12 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json(prompt);
   } catch (error) {
-    console.error('Error creating prompt:', error);
+    if ((error as Error).message === 'Has alcanzado tu límite de tokens para este período') {
+      return NextResponse.json(
+        { error: 'Has alcanzado tu límite de tokens para este período' },
+        { status: 429 }
+      );
+    }
     return NextResponse.json({ error: 'Error creating prompt' }, { status: 500 });
   }
 }

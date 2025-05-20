@@ -102,7 +102,7 @@ export default function CreatePromptDialog({
       toast.success('Prompt creado correctamente');
     } catch (error) {
       console.error('Error al crear el prompt:', error);
-      toast.error('Error al crear el prompt');
+      toast.error((error as Error).message);
     }
   }
 
