@@ -12,12 +12,7 @@ export default function Header() {
         <Link href='/app/dashboard' className='hover:underline'>
           App
         </Link>
-        <Link
-          href='https://github.com/slydragonn/buhoprompt-app'
-          target='_blank'
-          rel='noreferrer'
-          className='hover:underline'
-        >
+        <Link href='/docs' className='hover:underline'>
           Docs
         </Link>
         <Link href='#' className='hover:underline'>

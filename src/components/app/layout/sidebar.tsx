@@ -41,7 +41,7 @@ const items = {
   resources: [
     {
       title: 'Documentación',
-      url: '#',
+      url: '/docs',
       icon: Book,
     },
     {
