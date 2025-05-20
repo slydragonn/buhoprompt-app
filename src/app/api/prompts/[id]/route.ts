@@ -1,40 +1,41 @@
 import { deletePrompt, getPrompt, updatePrompt } from '@/lib/api/prompts';
 import { auth } from '@clerk/nextjs/server';
+import { NextRequest, NextResponse } from 'next/server';
 
-export async function GET(request: Request, { params }: { params: { id: string } }) {
+export async function GET(request: NextRequest, { params }: { params: { id: string } }) {
   const { userId } = await auth();
   if (!userId) {
-    return Response.json({ error: 'No autorizado' }, { status: 401 });
+    return NextResponse.json({ error: 'No autorizado' }, { status: 401 });
   }
 
-  const { id } = await params;
+  const id = params.id;
 
   const prompt = await getPrompt(id, userId);
 
-  return Response.json(prompt);
+  return NextResponse.json(prompt);
 }
 
-export async function PUT(request: Request) {
+export async function PUT(request: NextRequest) {
   const { userId } = await auth();
   if (!userId) {
-    return Response.json({ error: 'No autorizado' }, { status: 401 });
+    return NextResponse.json({ error: 'No autorizado' }, { status: 401 });
   }
 
   const body = await request.json();
   console.log(body);
   const prompt = await updatePrompt(body, userId);
 
-  return Response.json(prompt);
+  return NextResponse.json(prompt);
 }
 
-export async function DELETE(request: Request) {
+export async function DELETE(request: NextRequest) {
   const { userId } = await auth();
   if (!userId) {
-    return Response.json({ error: 'No autorizado' }, { status: 401 });
+    return NextResponse.json({ error: 'No autorizado' }, { status: 401 });
   }
 
   const body = await request.json();
   const prompt = await deletePrompt(body.id, userId, body.title);
 
-  return Response.json(prompt);
+  return NextResponse.json(prompt);
 }
