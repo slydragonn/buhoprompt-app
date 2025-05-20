@@ -26,8 +26,9 @@
 
 </div>
 
-La plataforma definitiva para prompt engineering
-**🚧 En desarrollo 🚧**
+Buho Prompt es una plataforma completa diseñada para profesionales, creadores de contenido y entusiastas que buscan optimizar sus interacciones con inteligencia artificial. Esta herramienta permite crear, almacenar, editar y perfeccionar prompts para diferentes modelos de IA, con un enfoque en las mejores prácticas de prompt engineering.
+
+El objetivo es democratizar el poder del prompt engineering, permitiendo a los usuarios aprovechar al máximo las capacidades de los diferentes modelos de IA sin necesidad de ser expertos técnicos, mientras ofrece herramientas avanzadas para profesionales.
 
 ## Primeros pasos
 
@@ -45,27 +46,21 @@ npm run build
 
 ## **📝 Descripción**
 
-Buho Prompt es una plataforma completa diseñada para profesionales, creadores de contenido y entusiastas que buscan optimizar sus interacciones con inteligencia artificial. Esta herramienta permite crear, almacenar, editar y perfeccionar prompts para diferentes modelos de IA, con un enfoque en las mejores prácticas de prompt engineering.
-
-El objetivo es democratizar el poder del prompt engineering, permitiendo a los usuarios aprovechar al máximo las capacidades de los diferentes modelos de IA sin necesidad de ser expertos técnicos, mientras ofrece herramientas avanzadas para profesionales.
-
-🔐 Implementamos autenticación robusta con Clerk, aprovechando inicio de sesión con email, redes sociales para la seguridad de los prompts y datos de usuarios.
-
-✨ **Funcionalidades principales:**
+✨ **Funcionalidades principales**
 
 - [x] Generador de prompts segun plantillas específicas
 - [x] Editor en tiempo real con chat integrado con IA para perfeccionar prompts
 - [x] Creación y Almacenamiento de plantillas personalizadas
-- [ ] Documentación completa con Markdown y guías interactivas
+- [x] Documentación y guías.
 - [ ] Extensión de navegador para interactuar con los prompts generados en chats (chatgpt, gemini, deepseek, claude)
 
-🚀 **Futuras Características:**
+🚀 **Futuras Características**
 
 - Compartir plantillas con múltiples usuarios
 - Exportación a múltiples formatos y APIs
 - Marketplace de plantillas premium
 
-## Stack del Proyecto
+🧑‍💻 **Stack del Proyecto**
 
 - Next.js
 - TypeScript
@@ -79,3 +74,9 @@ El objetivo es democratizar el poder del prompt engineering, permitiendo a los u
 - Prisma
 - Gemini API
 - Codemirror
+
+## Capturas
+
+![dashboard](/media/1.png)
+![create](/media/2.png)
+![edit](/media/7.png)

@@ -26,8 +26,9 @@
 
 </div>
 
-The ultimate platform for prompt engineering
-🚧 In Development 🚧
+Buho Prompt is a comprehensive platform designed for professionals, content creators, and enthusiasts looking to optimize their interactions with artificial intelligence. This tool allows you to create, store, edit, and refine prompts for various AI models, with a focus on prompt engineering best practices.
+
+The goal is to democratize the power of prompt engineering, enabling users to get the most out of different AI models without needing to be technical experts, while still offering advanced tools for professionals.
 
 ## Getting Started
 
@@ -45,27 +46,21 @@ npm run build
 
 ## 📝 Description
 
-Buho Prompt is a comprehensive platform designed for professionals, content creators, and enthusiasts looking to optimize their interactions with artificial intelligence. This tool allows you to create, store, edit, and refine prompts for various AI models, with a focus on prompt engineering best practices.
-
-The goal is to democratize the power of prompt engineering, enabling users to get the most out of different AI models without needing to be technical experts, while still offering advanced tools for professionals.
-
-🔐 We’ve implemented robust authentication with Clerk, supporting email and social logins to ensure the security of prompts and user data.
-
-**✨ Key Features:**
+**✨ Key Features**
 
 - [x] Prompt generator based on specific templates
 - [x] Real-time editor with integrated AI chat to refine prompts
 - [x] Creation and storage of custom templates
-- [ ] Full documentation with Markdown and interactive guides
+- [x] Documentation and guides
 - [ ] Browser extension to interact with generated prompts in chats (ChatGPT, Gemini, DeepSeek, Claude)
 
-**🚀 Upcoming Features:**
+**🚀 Upcoming Features**
 
 - Share templates with multiple users
 - Export to various formats and APIs
 - Premium template marketplace
 
-## Tech Stack
+🧑‍💻 **Tech Stack**
 
 - Next.js
 - TypeScript
@@ -79,3 +74,9 @@ The goal is to democratize the power of prompt engineering, enabling users to ge
 - Prisma
 - Gemini API
 - Codemirror
+
+## Screenshots
+
+![dashboard](/media/1.png)
+![create](/media/2.png)
+![edit](/media/7.png)
