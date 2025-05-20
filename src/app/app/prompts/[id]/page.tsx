@@ -1,6 +1,8 @@
 'use client';
 
 import AiChat from '@/components/app/ai/chat';
+import ErrorComponent from '@/components/app/layout/error';
+import Loader from '@/components/app/layout/loader';
 import { MarkdownEditor } from '@/components/app/prompts/prompt-markdown-editor';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
@@ -74,9 +76,9 @@ export default function Prompt() {
     URL.revokeObjectURL(url);
   };
 
-  if (isPending) return <div className='w-full h-full text-center'>Cargando...</div>;
+  if (isPending) return <Loader message='Obteniendo Prompt' isFullScreen />;
 
-  if (isError) return <div>Error: {error.message}</div>;
+  if (isError) return <ErrorComponent errorMessage={error.message} isFullScreen />;
 
   return (
     <div className='container mx-auto p-6 max-w-7xl'>

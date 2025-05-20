@@ -1,4 +1,6 @@
 'use client';
+import ErrorComponent from '@/components/app/layout/error';
+import Loader from '@/components/app/layout/loader';
 import { MarkdownEditor } from '@/components/app/prompts/prompt-markdown-editor';
 import { Button } from '@/components/ui/button';
 import { ScrollArea } from '@/components/ui/scroll-area';
@@ -62,13 +64,9 @@ export default function Template() {
     toast.success('Template copiado correctamente');
   };
 
-  if (isPending) {
-    return <div>Cargando...</div>;
-  }
+  if (isPending) return <Loader message='Obteniendo Template' isFullScreen />;
 
-  if (isError) {
-    return <div>Error: {error?.message}</div>;
-  }
+  if (isError) return <ErrorComponent errorMessage={error.message} isFullScreen />;
 
   return (
     <div className='container mx-auto p-6 max-w-7xl'>

@@ -4,6 +4,8 @@ import { useEffect } from 'react';
 import PromptCard from './prompt-card';
 import { usePrompts } from '@/hooks/use-prompts';
 import usePromptsStore from '@/store/prompts-store';
+import Loader from '../layout/loader';
+import ErrorComponent from '../layout/error';
 
 interface PromptListProps {
   filter: 'all' | 'recent';
@@ -21,8 +23,8 @@ export default function PromptList({ filter }: Readonly<PromptListProps>) {
     }
   }, [isSuccess]);
 
-  if (isPending) return <div className='w-xl text-center'>Cargando...</div>;
-  if (isError) return <div>Error: {error.message}</div>;
+  if (isPending) return <Loader message='Obteniendo Prompts' isFullScreen={false} />;
+  if (isError) return <ErrorComponent errorMessage={error.message} isFullScreen={false} />;
 
   if (!prompts.length) {
     return (

@@ -4,6 +4,8 @@ import { useEffect } from 'react';
 import TemplateCard from './template-card';
 import { useTemplates } from '@/hooks/use-templates';
 import useTemplatesStore from '@/store/templates-store';
+import Loader from '../layout/loader';
+import ErrorComponent from '../layout/error';
 
 export default function TemplateList() {
   const { isPending, isError, isSuccess, error, data } = useTemplates();
@@ -19,8 +21,8 @@ export default function TemplateList() {
   }, [isSuccess]);
   console.log(templates);
 
-  if (isPending) return <div className='w-xl text-center'>Cargando...</div>;
-  if (isError) return <div>Error: {error.message}</div>;
+  if (isPending) return <Loader message='Obteniendo Templates' isFullScreen={false} />;
+  if (isError) return <ErrorComponent errorMessage={error.message} isFullScreen={false} />;
 
   if (!templates.length) {
     return (
