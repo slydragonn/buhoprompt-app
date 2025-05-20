@@ -20,7 +20,7 @@
 
 <div align="center">
 
-[Live Demo](#) •
+[Live Demo](buhoprompt-app.vercel.app) •
 [README - English](README.en.md) •
 [Docs](#)
 
