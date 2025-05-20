@@ -29,6 +29,8 @@ import { cn } from '@/lib/utils';
 import { toast } from 'sonner';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { useCreatePrompt } from '@/hooks/use-prompts';
+import { useTemplates } from '@/hooks/use-templates';
+import { useUser } from '@clerk/nextjs';
 
 const templates = [
   {
@@ -51,7 +53,7 @@ const templates = [
     value: 'summary',
     label: 'Resumen',
   },
-] as const;
+];
 
 const formSchema = z.object({
   title: z
@@ -76,7 +78,15 @@ export default function CreatePromptDialog({
     resolver: zodResolver(formSchema),
   });
 
+  const { user } = useUser();
+
   const promptMutation = useCreatePrompt();
+  const { data: userTemplates } = useTemplates();
+
+  const userTemplatesOptions = userTemplates?.map((template) => ({
+    value: template.id,
+    label: `${user?.firstName}/${template.title}`,
+  }));
 
   async function onSubmit() {
     try {
@@ -150,7 +160,9 @@ export default function CreatePromptDialog({
                             )}
                           >
                             {field.value
-                              ? templates.find((template) => template.value === field.value)?.label
+                              ? templates
+                                  .concat(userTemplatesOptions ?? [])
+                                  .find((template) => template.value === field.value)?.label
                               : 'Seleccione un template...'}
                             <ChevronsUpDown className='opacity-50' />
                           </Button>
@@ -162,7 +174,7 @@ export default function CreatePromptDialog({
                           <CommandList>
                             <CommandEmpty>Sin resultados</CommandEmpty>
                             <CommandGroup>
-                              {templates.map((template) => (
+                              {templates.concat(userTemplatesOptions ?? []).map((template) => (
                                 <CommandItem
                                   value={template.label}
                                   key={template.value}

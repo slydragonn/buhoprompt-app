@@ -8,12 +8,16 @@ import useTemplatesStore from '@/store/templates-store';
 export default function TemplateList() {
   const { isPending, isError, isSuccess, error, data } = useTemplates();
   const { templates, setTemplates } = useTemplatesStore();
+  const dataArray = data ?? [];
 
   useEffect(() => {
-    if (isSuccess) {
-      setTemplates(data);
+    if (templates.length === 0 && dataArray.length > templates.length) {
+      if (isSuccess) {
+        setTemplates(data);
+      }
     }
   }, [isSuccess]);
+  console.log(templates);
 
   if (isPending) return <div className='w-xl text-center'>Cargando...</div>;
   if (isError) return <div>Error: {error.message}</div>;
@@ -29,7 +33,7 @@ export default function TemplateList() {
   return (
     <section>
       <h3 className='text-sm font-extralight mb-2'>Lista de Templates</h3>
-      <ul className='flex flex-col gap-4 w-full'>
+      <ul className='flex flex-col gap-4 w-full mb-10'>
         {templates.map((template) => (
           <TemplateCard
             key={template.id}

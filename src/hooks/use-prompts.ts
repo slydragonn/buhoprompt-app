@@ -1,3 +1,4 @@
+import usePromptsStore from '@/store/prompts-store';
 import { PromptData, PromptPostValue, PromptUpdateValue } from '@/types/prompt';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
@@ -26,6 +27,7 @@ export const usePrompt = (id: string) => {
 
 export const useCreatePrompt = () => {
   const router = useRouter();
+  const { prompts, setPrompts } = usePromptsStore();
 
   return useMutation({
     mutationFn: async (newPrompt: PromptPostValue) => {
@@ -40,7 +42,7 @@ export const useCreatePrompt = () => {
       return response.json();
     },
     onSuccess: (data) => {
-      console.log(data);
+      setPrompts([...prompts, data]);
       router.push(`/app/prompts/${data.id}`);
     },
   });

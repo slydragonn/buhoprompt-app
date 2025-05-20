@@ -79,7 +79,7 @@ export default function Template() {
             <ArrowLeft className='w-4 h-4 mr-2' />
             Volver
           </Button>
-          <h1 className='font-bold'>Template</h1>
+          <h1 className='font-bold'>{template.title}</h1>
         </div>
         <div className='flex items-center gap-2'>
           <Button variant='outline' size='sm' onClick={handleCopy}>

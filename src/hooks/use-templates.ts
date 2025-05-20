@@ -1,3 +1,4 @@
+import useTemplatesStore from '@/store/templates-store';
 import { TemplateData, TemplateCreateValue, TemplateUpdateValue } from '@/types/template';
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { useRouter } from 'next/navigation';
@@ -26,6 +27,7 @@ export const useTemplate = (id: string) => {
 
 export const useCreateTemplate = () => {
   const router = useRouter();
+  const { templates, setTemplates } = useTemplatesStore();
 
   return useMutation({
     mutationFn: async (newTemplate: TemplateCreateValue) => {
@@ -41,6 +43,7 @@ export const useCreateTemplate = () => {
     },
     onSuccess: (data) => {
       console.log(data);
+      setTemplates([...templates, data]);
       router.push(`/app/templates/${data.id}`);
     },
   });

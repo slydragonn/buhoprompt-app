@@ -4,12 +4,15 @@ import Header from '@/components/app/layout/header';
 import MainLayout from '@/components/app/layout/main';
 import CreatePromptDialog from '@/components/app/prompts/prompt-dialog';
 import PromptList from '@/components/app/prompts/prompt-list';
+import CreateTemplateDialog from '@/components/app/templates/template-dialog';
 import { Button } from '@/components/ui/button';
+import usePromptsStore from '@/store/prompts-store';
 import { useUser } from '@clerk/nextjs';
 import { BookTemplate, Clock8, Zap } from 'lucide-react';
 
 export default function Dashboard() {
   const { user, isLoaded } = useUser();
+  const { prompts } = usePromptsStore();
 
   if (!isLoaded) {
     return null;
@@ -29,9 +32,13 @@ export default function Dashboard() {
                 </Button>
               }
             />
-            <Button variant='outline' className='w-full sm:w-70 h-10'>
-              <BookTemplate /> Nuevo Template
-            </Button>
+            <CreateTemplateDialog
+              buttonComponent={
+                <Button variant='outline' className='w-full sm:w-70 h-10'>
+                  <BookTemplate /> Nuevo Template
+                </Button>
+              }
+            />
           </div>
           <div className='w-full'>
             <div className='flex items-center gap-2 mb-2'>
@@ -43,8 +50,7 @@ export default function Dashboard() {
         </div>
       </MainLayout>
       <Footer>
-        <span>Prompts: 10</span>
-        <span>Templates: 10</span>
+        <span>Prompts: {prompts.length}</span>
       </Footer>
     </>
   );

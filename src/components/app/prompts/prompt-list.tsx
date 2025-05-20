@@ -11,10 +11,13 @@ interface PromptListProps {
 export default function PromptList({ filter }: Readonly<PromptListProps>) {
   const { isPending, isError, isSuccess, error, data } = usePrompts();
   const { prompts, setPrompts } = usePromptsStore();
+  const dataArray = data ?? [];
 
   useEffect(() => {
-    if (isSuccess) {
-      setPrompts(data);
+    if (prompts.length === 0 && dataArray.length > prompts.length) {
+      if (isSuccess) {
+        setPrompts(data);
+      }
     }
   }, [isSuccess]);
 
@@ -32,7 +35,7 @@ export default function PromptList({ filter }: Readonly<PromptListProps>) {
   return (
     <section>
       <h3 className='text-sm font-extralight mb-2'>Lista de Prompts</h3>
-      <ul className='flex flex-col gap-4 w-full'>
+      <ul className='flex flex-col gap-4 w-full mb-10'>
         {filter === 'recent' &&
           prompts
             .slice(0, 5)
