@@ -8,6 +8,7 @@ import { Separator } from '@/components/ui/separator';
 import { useTemplate, useUpdateTemplate } from '@/hooks/use-templates';
 import { getFullTime } from '@/lib/utils';
 import useTemplateStore from '@/store/template-store';
+import useTemplatesStore from '@/store/templates-store';
 import { ArrowLeft, Copy, Save } from 'lucide-react';
 import { useParams, useRouter } from 'next/navigation';
 import { useCallback, useEffect, useState } from 'react';
@@ -19,13 +20,19 @@ export default function Template() {
   const { data, isPending, isError, isSuccess, error } = useTemplate(id as string);
   const templateMutation = useUpdateTemplate();
   const { template, setTemplate } = useTemplateStore();
+  const { templates, setTemplates } = useTemplatesStore();
   const [isSyncing, setIsSyncing] = useState(true);
   const [newChanges, setNewChanges] = useState('');
 
   useEffect(() => {
     if (isSuccess) {
       setTemplate(data);
-      setNewChanges(data.content);
+      const updatedTemplate = templates.find((template) => template.id === data.id);
+      if (updatedTemplate) {
+        setNewChanges(updatedTemplate.content);
+      } else {
+        setNewChanges(data.content);
+      }
       setIsSyncing(true);
     }
   }, [isSuccess]);
@@ -54,6 +61,19 @@ export default function Template() {
       content: newChanges,
       updatedAt: new Date(),
     });
+
+    setTemplates(
+      templates.map((template) => {
+        if (template.id === id) {
+          return {
+            ...template,
+            content: newChanges,
+            updatedAt: new Date(),
+          };
+        }
+        return template;
+      })
+    );
 
     setIsSyncing(true);
 

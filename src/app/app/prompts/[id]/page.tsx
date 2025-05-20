@@ -10,6 +10,7 @@ import { ScrollArea } from '@/components/ui/scroll-area';
 import { usePrompt, useUpdatePrompt } from '@/hooks/use-prompts';
 import { getFullTime } from '@/lib/utils';
 import usePromptStore from '@/store/prompt-store';
+import usePromptsStore from '@/store/prompts-store';
 import { ArrowLeft, Copy, Save } from 'lucide-react';
 import { useParams, useRouter } from 'next/navigation';
 import { useCallback, useEffect, useState } from 'react';
@@ -21,13 +22,19 @@ export default function Prompt() {
   const { data, isPending, isError, isSuccess, error } = usePrompt(id as string);
   const promptMutation = useUpdatePrompt();
   const { prompt, setPrompt } = usePromptStore();
+  const { prompts, setPrompts } = usePromptsStore();
   const [isSyncing, setIsSyncing] = useState(false);
   const [newChanges, setNewChanges] = useState('');
 
   useEffect(() => {
     if (isSuccess) {
       setPrompt(data);
-      setNewChanges(data.improved);
+      const updatedPrompt = prompts.find((prompt) => prompt.id === data.id);
+      if (updatedPrompt) {
+        setNewChanges(updatedPrompt.improved);
+      } else {
+        setNewChanges(data.improved);
+      }
       setIsSyncing(true);
     }
   }, [isSuccess]);
@@ -56,6 +63,19 @@ export default function Prompt() {
       improved: newChanges,
       updatedAt: new Date(),
     });
+
+    setPrompts(
+      prompts.map((prompt) => {
+        if (prompt.id === id) {
+          return {
+            ...prompt,
+            improved: newChanges,
+            updatedAt: new Date(),
+          };
+        }
+        return prompt;
+      })
+    );
 
     setIsSyncing(true);
 
