@@ -15,16 +15,10 @@ export default function Header() {
         <Link
           href='https://github.com/slydragonn/buhoprompt-app'
           target='_blank'
+          rel='noreferrer'
           className='hover:underline'
         >
           Docs
-        </Link>
-        <Link
-          href='https://github.com/slydragonn/buhoprompt-app'
-          target='_blank'
-          className='hover:underline'
-        >
-          Changelog
         </Link>
         <Link href='#' className='hover:underline'>
           Extensión

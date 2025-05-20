@@ -436,6 +436,10 @@ export default function LandingPage() {
                       <CheckCircle className='mr-2 h-4 w-4 text-primary' />
                       <span>Editor de prompts</span>
                     </li>
+                    <li className='flex items-center'>
+                      <CheckCircle className='mr-2 h-4 w-4 text-primary' />
+                      <span>Asistente IA</span>
+                    </li>
                   </ul>
                   <Button className='w-full' asChild>
                     <Link href='#registro'>Comenzar Gratis</Link>
@@ -445,14 +449,10 @@ export default function LandingPage() {
               <Card className='border-2 border-primary'>
                 <CardContent className='p-6'>
                   <div className='mb-4 space-y-2'>
-                    <div className='inline-block rounded-full bg-primary/10 px-3 py-1 text-sm text-primary'>
-                      Popular
-                    </div>
                     <h3 className='text-2xl font-bold'>Pro</h3>
                     <p className='text-muted-foreground'>Para profesionales</p>
                     <div className='flex items-baseline gap-1'>
-                      <span className='text-3xl font-bold'>$9.99</span>
-                      <span className='text-muted-foreground'>/mes</span>
+                      <span className='text-3xl font-bold'>Muy Pronto</span>
                     </div>
                   </div>
                   <ul className='mb-6 space-y-2'>
@@ -482,8 +482,7 @@ export default function LandingPage() {
                     <h3 className='text-2xl font-bold'>Empresas</h3>
                     <p className='text-muted-foreground'>Para equipos y organizaciones</p>
                     <div className='flex items-baseline gap-1'>
-                      <span className='text-3xl font-bold'>$29.99</span>
-                      <span className='text-muted-foreground'>/mes</span>
+                      <span className='text-3xl font-bold'>Muy Pronto</span>
                     </div>
                   </div>
                   <ul className='mb-6 space-y-2'>
