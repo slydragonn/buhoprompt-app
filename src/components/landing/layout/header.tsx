@@ -4,7 +4,7 @@ import Link from 'next/link';
 
 export default function Header() {
   return (
-    <header className='fixed flex justify-between items-center w-full h-16 p-4 gap-4 border-b border-dashed border-neutral-300 dark:border-neutral-800 bg-neutral-100/50 dark:bg-neutral-950/60 backdrop-blur'>
+    <header className='z-50 fixed flex justify-between items-center w-full h-16 p-4 gap-4 border-b border-dashed border-neutral-300 dark:border-neutral-800 bg-neutral-100/50 dark:bg-neutral-950/60 backdrop-blur'>
       <Link href='/' className='font-bold'>
         BuhoPrompt
       </Link>
@@ -12,10 +12,18 @@ export default function Header() {
         <Link href='/app/dashboard' className='hover:underline'>
           App
         </Link>
-        <Link href='#' className='hover:underline'>
+        <Link
+          href='https://github.com/slydragonn/buhoprompt-app'
+          target='_blank'
+          className='hover:underline'
+        >
           Docs
         </Link>
-        <Link href='#' className='hover:underline'>
+        <Link
+          href='https://github.com/slydragonn/buhoprompt-app'
+          target='_blank'
+          className='hover:underline'
+        >
           Changelog
         </Link>
         <Link href='#' className='hover:underline'>
