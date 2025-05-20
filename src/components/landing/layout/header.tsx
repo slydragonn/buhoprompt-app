@@ -23,7 +23,7 @@ export default function Header() {
         <Link href='#' className='hover:underline'>
           Extensión
         </Link>
-        <Link href='#' className='hover:underline'>
+        <Link href='/contact' className='hover:underline'>
           Contacto
         </Link>
       </nav>
