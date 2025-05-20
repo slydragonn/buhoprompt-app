@@ -20,8 +20,10 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { useCreateTemplate } from '@/hooks/use-templates';
+import { cn } from '@/lib/utils';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Loader2 } from 'lucide-react';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
 import { z } from 'zod';
@@ -68,6 +70,8 @@ const formSchema = z.object({
 export default function CreateTemplateDialog({
   buttonComponent,
 }: Readonly<{ buttonComponent: React.ReactNode }>) {
+  const [dialogOpen, setDialogOpen] = useState(false);
+
   const templateForm = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
   });
@@ -89,80 +93,99 @@ export default function CreateTemplateDialog({
   }
 
   return (
-    <Dialog>
-      <DialogTrigger asChild>{buttonComponent}</DialogTrigger>
-      <DialogContent className='sm:max-w-[425px]'>
-        <DialogHeader>
-          <DialogTitle>Crear template</DialogTitle>
-          <DialogDescription>Crea un template para usarlo en tus prompts</DialogDescription>
-        </DialogHeader>
-        <Form {...templateForm}>
-          <form
-            onSubmit={templateForm.handleSubmit(onSubmit)}
-            className='flex flex-col space-y-4 px-6 pb-6'
-          >
-            <FormField
-              name='title'
-              control={templateForm.control}
-              render={({ field }) => (
-                <FormItem>
-                  <FormControl>
-                    <Input placeholder='Título' {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
+    <>
+      <Dialog
+        open={dialogOpen}
+        onOpenChange={(open) => !templateMutation.isPending && setDialogOpen(open)}
+      >
+        <DialogTrigger asChild>{buttonComponent}</DialogTrigger>
+        <DialogContent className='sm:max-w-[425px]'>
+          <DialogHeader>
+            <DialogTitle>Crear template</DialogTitle>
+            <DialogDescription>Crea un template para usarlo en tus prompts</DialogDescription>
+          </DialogHeader>
+          <Form {...templateForm}>
+            <form
+              onSubmit={templateForm.handleSubmit(onSubmit)}
+              className={cn(
+                'flex flex-col space-y-4 px-6 pb-6',
+                templateMutation.isPending && 'pointer-events-none opacity-50'
               )}
-            />
-            <FormField
-              name='description'
-              control={templateForm.control}
-              render={({ field }) => (
-                <FormItem>
-                  <FormControl>
-                    <Input placeholder='Descripción' {...field} />
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <FormField
-              name='base'
-              control={templateForm.control}
-              render={({ field }) => (
-                <FormItem>
-                  <FormControl>
-                    <Select onValueChange={field.onChange}>
-                      <SelectTrigger>
-                        <SelectValue placeholder='Template base' />
-                      </SelectTrigger>
-                      <SelectContent>
-                        {baseOptions.map((option) => (
-                          <SelectItem key={option.value} value={option.value}>
-                            {option.label}
-                          </SelectItem>
-                        ))}
-                      </SelectContent>
-                    </Select>
-                  </FormControl>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
-            <DialogFooter>
-              <Button type='submit' disabled={templateMutation.isPending}>
-                {templateMutation.isPending ? (
-                  <>
-                    <Loader2 className='mr-2 h-4 w-4 animate-spin' />
-                    Creando Template...
-                  </>
-                ) : (
-                  'Crear Template'
+            >
+              <FormField
+                name='title'
+                control={templateForm.control}
+                render={({ field }) => (
+                  <FormItem>
+                    <FormControl>
+                      <Input placeholder='Título' {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
                 )}
-              </Button>
-            </DialogFooter>
-          </form>
-        </Form>
-      </DialogContent>
-    </Dialog>
+              />
+              <FormField
+                name='description'
+                control={templateForm.control}
+                render={({ field }) => (
+                  <FormItem>
+                    <FormControl>
+                      <Input placeholder='Descripción' {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                name='base'
+                control={templateForm.control}
+                render={({ field }) => (
+                  <FormItem>
+                    <FormControl>
+                      <Select onValueChange={field.onChange}>
+                        <SelectTrigger>
+                          <SelectValue placeholder='Template base' />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {baseOptions.map((option) => (
+                            <SelectItem key={option.value} value={option.value}>
+                              {option.label}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <DialogFooter>
+                <Button type='submit' disabled={templateMutation.isPending}>
+                  {templateMutation.isPending ? (
+                    <>
+                      <Loader2 className='mr-2 h-4 w-4 animate-spin' />
+                      Creando Template...
+                    </>
+                  ) : (
+                    'Crear Template'
+                  )}
+                </Button>
+              </DialogFooter>
+            </form>
+          </Form>
+        </DialogContent>
+      </Dialog>
+      {templateMutation.isPending && (
+        <div className='fixed inset-0 bg-background/90 backdrop-blur-sm z-[100] flex items-center justify-center'>
+          <div className='flex flex-col items-center gap-4'>
+            <Loader2 className='h-12 w-12 animate-spin' />
+            <h2 className='text-xl font-semibold'>Creando Template...</h2>
+            <p className='text-muted-foreground'>
+              Por favor espera, esto puede tomar unos segundos
+            </p>
+          </div>
+        </div>
+      )}
+    </>
   );
 }
