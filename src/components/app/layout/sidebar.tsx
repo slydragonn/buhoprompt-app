@@ -46,7 +46,7 @@ const items = {
     },
     {
       title: 'Extensión',
-      url: '#',
+      url: '/extension',
       icon: Box,
     },
   ],

@@ -15,7 +15,7 @@ export default function Header() {
         <Link href='/docs' className='hover:underline'>
           Docs
         </Link>
-        <Link href='#' className='hover:underline'>
+        <Link href='/extension' className='hover:underline'>
           Extensión
         </Link>
         <Link href='/contact' className='hover:underline'>
