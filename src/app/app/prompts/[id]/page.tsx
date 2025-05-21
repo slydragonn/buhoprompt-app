@@ -3,15 +3,17 @@
 import AiChat from '@/components/app/ai/chat';
 import ErrorComponent from '@/components/app/layout/error';
 import Loader from '@/components/app/layout/loader';
+import PromptAlert from '@/components/app/prompts/prompt-alert';
 import { MarkdownEditor } from '@/components/app/prompts/prompt-markdown-editor';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { ScrollArea } from '@/components/ui/scroll-area';
-import { usePrompt, useUpdatePrompt } from '@/hooks/use-prompts';
+import { useDeletePrompt, usePrompt, useUpdatePrompt } from '@/hooks/use-prompts';
 import { getFullTime } from '@/lib/utils';
 import usePromptStore from '@/store/prompt-store';
 import usePromptsStore from '@/store/prompts-store';
-import { ArrowLeft, Copy, Save } from 'lucide-react';
+import { PromptData } from '@/types/prompt';
+import { ArrowLeft, Copy, Save, Trash2 } from 'lucide-react';
 import { useParams, useRouter } from 'next/navigation';
 import { useCallback, useEffect, useState } from 'react';
 import { toast } from 'sonner';
@@ -20,9 +22,10 @@ export default function Prompt() {
   const router = useRouter();
   const { id } = useParams();
   const { data, isPending, isError, isSuccess, error } = usePrompt(id as string);
+  const deletePrompt = useDeletePrompt();
   const promptMutation = useUpdatePrompt();
   const { prompt, setPrompt } = usePromptStore();
-  const { prompts, setPrompts } = usePromptsStore();
+  const { prompts, setPrompts, removePrompt } = usePromptsStore();
   const [isSyncing, setIsSyncing] = useState(false);
   const [newChanges, setNewChanges] = useState('');
 
@@ -80,6 +83,14 @@ export default function Prompt() {
     setIsSyncing(true);
 
     toast.success('Prompt guardado correctamente');
+  };
+
+  const handleDelete = () => {
+    deletePrompt.mutate({ id: id as string, title: prompt.title });
+    removePrompt(id as string);
+    toast.success('Prompt eliminado correctamente');
+    setPrompt({} as PromptData);
+    router.push('/app/prompts');
   };
 
   const handleCopy = () => {
@@ -210,6 +221,18 @@ export default function Prompt() {
                   </svg>
                   Exportar archivo
                 </Button>
+                <PromptAlert
+                  button={
+                    <Button
+                      variant='outline'
+                      className='w-full justify-start text-red-400 hover:text-red-500'
+                    >
+                      <Trash2 className='w-4 h-4 mr-2' />
+                      Eliminar prompt
+                    </Button>
+                  }
+                  handleClick={handleDelete}
+                />
               </CardContent>
             </Card>
           </div>

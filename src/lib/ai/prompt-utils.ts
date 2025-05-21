@@ -5,14 +5,15 @@ export function getConfiguredPrompt(type: string, userMessage: string, promptCon
   let userPrompt = '';
 
   if (type === 'improve') {
-    systemPrompt = improveTemplate;
+    systemPrompt =
+      improveTemplate +
+      '\n\nPor favor, proporciona una versión mejorada de este prompt, y aplica los cambios que te pida el usuario.\n\n';
 
     userPrompt = `Prompt actual a mejorar:
 """
 ${promptContext}
 """
-
-Por favor, proporciona una versión mejorada de este prompt. Explica brevemente qué cambios hiciste y por qué son beneficiosos.`;
+`;
   } else {
     systemPrompt = `Eres un asistente experto en prompt engineering. Ayudas a los usuarios a entender, analizar y mejorar sus prompts para modelos de IA.
 

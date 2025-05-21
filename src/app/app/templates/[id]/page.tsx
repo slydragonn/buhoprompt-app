@@ -1,15 +1,17 @@
 'use client';
 import ErrorComponent from '@/components/app/layout/error';
 import Loader from '@/components/app/layout/loader';
+import PromptAlert from '@/components/app/prompts/prompt-alert';
 import { MarkdownEditor } from '@/components/app/prompts/prompt-markdown-editor';
 import { Button } from '@/components/ui/button';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import { Separator } from '@/components/ui/separator';
-import { useTemplate, useUpdateTemplate } from '@/hooks/use-templates';
+import { useDeleteTemplate, useTemplate, useUpdateTemplate } from '@/hooks/use-templates';
 import { getFullTime } from '@/lib/utils';
 import useTemplateStore from '@/store/template-store';
 import useTemplatesStore from '@/store/templates-store';
-import { ArrowLeft, Copy, Save } from 'lucide-react';
+import { TemplateData } from '@/types/template';
+import { ArrowLeft, Copy, Save, Trash2 } from 'lucide-react';
 import { useParams, useRouter } from 'next/navigation';
 import { useCallback, useEffect, useState } from 'react';
 import { toast } from 'sonner';
@@ -19,8 +21,9 @@ export default function Template() {
   const { id } = useParams();
   const { data, isPending, isError, isSuccess, error } = useTemplate(id as string);
   const templateMutation = useUpdateTemplate();
+  const deleteTemplate = useDeleteTemplate();
   const { template, setTemplate } = useTemplateStore();
-  const { templates, setTemplates } = useTemplatesStore();
+  const { templates, setTemplates, removeTemplate } = useTemplatesStore();
   const [isSyncing, setIsSyncing] = useState(true);
   const [newChanges, setNewChanges] = useState('');
 
@@ -85,6 +88,14 @@ export default function Template() {
     toast.success('Template copiado correctamente');
   };
 
+  const handleDeleteTemplate = () => {
+    deleteTemplate.mutate({ id: id as string, title: template.title });
+    removeTemplate(id as string);
+    toast.success('Template eliminado correctamente');
+    setTemplate({} as TemplateData);
+    router.push('/app/templates');
+  };
+
   if (isPending) return <Loader message='Obteniendo Template' isFullScreen />;
 
   if (isError) return <ErrorComponent errorMessage={error.message} isFullScreen />;
@@ -92,7 +103,7 @@ export default function Template() {
   return (
     <div className='container mx-auto p-6 max-w-7xl'>
       {/* Header */}
-      <div className='flex items-center justify-between mb-6'>
+      <div className='flex sm:flex-row flex-col gap-4 items-start md:items-center justify-between mb-6'>
         <div className='flex items-center gap-4'>
           <Button variant='ghost' size='sm' onClick={() => router.back()}>
             <ArrowLeft className='w-4 h-4 mr-2' />
@@ -117,6 +128,14 @@ export default function Template() {
             <Save className='w-4 h-4 mr-2' />
             {isSyncing ? 'Guardado' : 'Guardar'}
           </Button>
+          <PromptAlert
+            button={
+              <Button variant='destructive' size='icon'>
+                <Trash2 className='w-4 h-4' />
+              </Button>
+            }
+            handleClick={handleDeleteTemplate}
+          />
         </div>
       </div>
 

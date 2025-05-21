@@ -74,35 +74,9 @@ Usuario: ${userPrompt}`;
       });
     }
 
-    // Para tipo 'improve', extraer el prompt mejorado
-    let improvedPrompt = null;
-    if (type === 'improve') {
-      // Intentar extraer el prompt mejorado del response
-      const codeBlockMatch = RegExp(/```[\s\S]*?\n([\s\S]*?)```/).exec(text);
-      const quotedMatch = RegExp(/"""([\s\S]*?)"""/).exec(text);
-
-      if (codeBlockMatch) {
-        improvedPrompt = codeBlockMatch[1].trim();
-      } else if (quotedMatch) {
-        improvedPrompt = quotedMatch[1].trim();
-      } else {
-        // Si no encontramos formato específico, usar el texto como mejora
-        const lines = text.split('\n');
-        const promptStart = lines.findIndex(
-          (line) =>
-            line.toLowerCase().includes('mejorado') ||
-            line.toLowerCase().includes('versión') ||
-            line.trim().length > 50
-        );
-        if (promptStart !== -1) {
-          improvedPrompt = lines.slice(promptStart).join('\n').trim();
-        }
-      }
-    }
-
     return NextResponse.json({
       response: text,
-      improvedPrompt,
+      improvedPrompt: text,
       tokensRemaining: userToken ? userToken.tokensLimit - userToken.tokensUsed - 1 : 10,
     });
   } catch (error) {
