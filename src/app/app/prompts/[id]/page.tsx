@@ -133,8 +133,8 @@ export default function Prompt() {
       </div>
 
       <div className='flex flex-col gap-6'>
-        <div className='grid grid-cols-3 gap-6'>
-          <div className='col-span-2 flex flex-col gap-6'>
+        <div className='grid grid-cols-1 md:grid-cols-3 gap-6'>
+          <div className='col-span-1 md:col-span-2 flex flex-col gap-6'>
             {/* Editor */}
             <Card>
               <CardHeader>
@@ -155,7 +155,7 @@ export default function Prompt() {
 
           <div className='flex flex-col gap-6'>
             {/* Detalles del prompt */}
-            <Card className='col-span-1'>
+            <Card className='hidden md:block col-span-1'>
               <CardHeader>
                 <CardTitle>Detalles</CardTitle>
               </CardHeader>

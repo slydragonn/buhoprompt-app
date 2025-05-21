@@ -133,7 +133,7 @@ export default function CreatePromptDialog({
                     <FormItem>
                       <FormLabel>Título</FormLabel>
                       <FormControl>
-                        <Input placeholder='Example: Resume' {...field} />
+                        <Input placeholder='Ejemplo: Resumen' {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -146,7 +146,7 @@ export default function CreatePromptDialog({
                     <FormItem>
                       <FormLabel>Descripción</FormLabel>
                       <FormControl>
-                        <Input placeholder='Resume for a job application' {...field} />
+                        <Input placeholder='Resumen de la tarea' {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -219,7 +219,7 @@ export default function CreatePromptDialog({
                       <FormControl>
                         <Textarea
                           className='resize-none h-56'
-                          placeholder='Generate a resume for a job application'
+                          placeholder='Tu prompt...'
                           {...field}
                         />
                       </FormControl>
