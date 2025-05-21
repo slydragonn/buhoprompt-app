@@ -115,7 +115,7 @@ export default function Prompt() {
   return (
     <div className='container mx-auto p-6 max-w-7xl'>
       {/* Header */}
-      <div className='flex items-center justify-between mb-6'>
+      <div className='flex sm:flex-row flex-col items-start sm:items-center justify-between gap-4 mb-6'>
         <div className='flex items-center gap-4'>
           <Button variant='ghost' size='sm' onClick={() => router.back()}>
             <ArrowLeft className='w-4 h-4 mr-2' />
